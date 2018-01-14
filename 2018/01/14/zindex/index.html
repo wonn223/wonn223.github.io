@@ -9,19 +9,19 @@
     
         <meta name="keywords" content="z-index, css, 쌓임맥락, stacking context, position" />
     
-    <meta name="description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 처음엔 position : relative | absolute를 써보고, 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 가끔 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 알지 못하다가 z-index rendering이란 키워드로 검색을 하">
+    <meta name="description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이">
 <meta name="keywords" content="z-index, css, 쌓임맥락, stacking context, position">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서&#x2F; 쌓임 맥락">
 <meta property="og:url" content="https://wonn223.github.io/2018/01/14/zindex/index.html">
 <meta property="og:site_name" content="seokwon">
-<meta property="og:description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 처음엔 position : relative | absolute를 써보고, 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 가끔 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 알지 못하다가 z-index rendering이란 키워드로 검색을 하">
+<meta property="og:description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.stack.imgur.com/4yHZs.png">
-<meta property="og:updated_time" content="2018-01-14T16:08:43.000Z">
+<meta property="og:updated_time" content="2018-01-14T16:14:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서&#x2F; 쌓임 맥락">
-<meta name="twitter:description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 처음엔 position : relative | absolute를 써보고, 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 가끔 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 알지 못하다가 z-index rendering이란 키워드로 검색을 하">
+<meta name="twitter:description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이">
 <meta name="twitter:image" content="https://i.stack.imgur.com/4yHZs.png">
     
 
@@ -172,7 +172,7 @@
         
         <div class="article-entry" itemprop="articleBody">
             <blockquote>
-<p>css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 처음엔 position : relative | absolute를 써보고, 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 가끔 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 알지 못하다가 z-index rendering이란 키워드로 검색을 하던 차에 쌓임 맥락(stacking context)이란 것을 알게 되었다.</p>
+<p>css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이란 것을 알게 되었다.</p>
 </blockquote>
 <h3 id="쌓임맥락"><a href="#쌓임맥락" class="headerlink" title="쌓임맥락"></a>쌓임맥락</h3><p>HTML문서가 DOM에서 렌더링 트리로 변할 때까지 트리의 렌더 오브젝트(DOM에선 노드)는 문서에 적힌 위계를 그대로 가지고 여러 개의 층(stack)을 이룬다. 스택에서 볼 수 있는 층 간의 위계를 쌓임 순서/위계(stacking order)라고 하며 각 층에서 오브젝트들이 저마다 형성한 위계를 쌓임 맥락(stacking context)이라 한다.</p>
 <p>층이 쌓이는 순서는 기본적으로 HTML문서에 선언된 위치에 따라 결정되지만, 레이어에 변화를 일으키는 css프로퍼티(position, z-index)에 따라 그 순서가 달라진다. 이는 브라우저의 렌더링 작업에도 영향을 미친다. (브라우저 렌더링 작업에 관한 글은 따로 정리.)</p>
@@ -210,10 +210,11 @@
 <p><img src="zindex/parent_context.png" alt="부모와 자식 요소 간의 맥락"></p>
 <p><a href="https://codepen.io/philipwalton/pen/ksBaI" target="_blank" rel="noopener">Codepen으로 확인하기</a></p>
 <h3 id="display-float인-경우"><a href="#display-float인-경우" class="headerlink" title="display:float인 경우"></a>display:float인 경우</h3><p> 포지션이 지정된 엘리먼트와 그렇지 않은 엘리먼트 사이에 위치한다.</p>
-<h3 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h3><blockquote>
-<p>…If you’re setting a z-index of a billion on an element and it’s not moving forward in the stacking order, take a look up its ancestor tree and see if any of its parents form stacking contexts</p>
+<h3 id="개념을-접하고-나서"><a href="#개념을-접하고-나서" class="headerlink" title="개념을 접하고 나서"></a>개념을 접하고 나서</h3><blockquote>
+<p>[philpwalton의 글 중..]</p>
 </blockquote>
-<p>만약 어떤 요소에 z-index를 줬는데 변화가 일어나지 않았다면, position이 적용되었는지 확인하고 또 부모 요소에 쌓임 맥락이 형성되어 있는지 확인하면 z-index가 먹히지 않는 이유를 파악할 수 있겠다.</p>
+<p>…If you’re setting a z-index of a billion on an element and it’s not moving forward in the stacking order, take a look up its ancestor tree and see if any of its parents form stacking contexts</p>
+<p>만약 어떤 요소에 z-index를 줬는데 변화가 일어나지 않았다면 position 프로퍼티가 선언되었는지를 확인하거나, 부모 요소에 쌓임 맥락이 형성되어 있는지를 확인하면 원인을 파악할 수 있겠다는 생각이 들었다.</p>
 <p>1) <a href="https://coding.smashingmagazine.com/2009/09/the-z-index-css-property-a-comprehensive-look/" target="_blank" rel="noopener">https://coding.smashingmagazine.com/2009/09/the-z-index-css-property-a-comprehensive-look/</a></p>
 <pre><code>&gt; smashingmagazine에서 제공하는 쌓임맥락 설명. 코드 예제와 z-index 적용된 사이트를 소개하고 있다.
 </code></pre><p>2) <a href="https://mytory.net/archives/10997" target="_blank" rel="noopener">https://mytory.net/archives/10997</a></p>
