@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>CSS z-index 이해하기 (1) 쌓임맥락 | seokwon</title>
+    <title>CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락 | seokwon</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
@@ -12,17 +12,17 @@
     <meta name="description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 처음엔 position : relative | absolute를 써보고, 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 가끔 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 알지 못하다가 z-index rendering이란 키워드로 검색을 하">
 <meta name="keywords" content="z-index, css, 쌓임맥락, stacking context, position">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS z-index 이해하기 (1) 쌓임맥락">
+<meta property="og:title" content="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서&#x2F; 쌓임 맥락">
 <meta property="og:url" content="https://wonn223.github.io/2018/01/14/zindex/index.html">
 <meta property="og:site_name" content="seokwon">
 <meta property="og:description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 처음엔 position : relative | absolute를 써보고, 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 가끔 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 알지 못하다가 z-index rendering이란 키워드로 검색을 하">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://wonn223.github.io/2018/01/14/zindex/z-index/position_zindex_both_true.png">
-<meta property="og:updated_time" content="2018-01-14T09:38:02.000Z">
+<meta property="og:image" content="https://i.stack.imgur.com/4yHZs.png">
+<meta property="og:updated_time" content="2018-01-14T16:08:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS z-index 이해하기 (1) 쌓임맥락">
+<meta name="twitter:title" content="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서&#x2F; 쌓임 맥락">
 <meta name="twitter:description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 처음엔 position : relative | absolute를 써보고, 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 가끔 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 알지 못하다가 z-index rendering이란 키워드로 검색을 하">
-<meta name="twitter:image" content="https://wonn223.github.io/2018/01/14/zindex/z-index/position_zindex_both_true.png">
+<meta name="twitter:image" content="https://i.stack.imgur.com/4yHZs.png">
     
 
     
@@ -146,7 +146,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-        CSS z-index 이해하기 (1) 쌓임맥락
+        CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락
         </h1>
     
 
@@ -189,24 +189,25 @@
 </ul>
 <h3 id="예제"><a href="#예제" class="headerlink" title="예제"></a>예제</h3><p><em>우선 z-index는 요소에 position 프로퍼티가 있을 때만 유효하다.</em> position 속성이 없으면 z-index를 높여도 기존의 화면이 달라지지 않는다.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#box_1 &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: relative;</span><br><span class="line">    z-index: 99;</span><br><span class="line">    background: goldenrod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box_2 &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: relative;</span><br><span class="line">    z-index: 500;</span><br><span class="line">    margin-top: -72px;</span><br><span class="line">    background: darkgreen;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box_3 &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: relative;</span><br><span class="line">    z-index: 1;</span><br><span class="line">    background: darkcyan;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="z-index/position_zindex_both_true.png" alt="포지션 값이 있을 때 z-index"><br><img src="z-index/poistion_false.png" alt="포지션 값이 없을 때 z-index"></p>
+<p><img src="zindex/position_zindex_both_true.png" alt="포지션 값이 있을 때 z-index"><br><img src="zindex/poistion_false.png" alt="포지션 값이 없을 때 z-index"></p>
 <p>왼쪽이 세 개의 id에 position과 z-index 모두 적용했을 때 모습이다. 초록색 박스(div_2)가 금색 박스보다 z-index가 높고 <code>margin-top</code>속성을 가지고 있어서 금색 박스(div_1)를 덮었다. 오른쪽의 경우는 초록색 박스의 position 속성을 껐을 때다. z-index 속성이 무효화되고, 초록색 박스의 margin-top 값만큼 청록색 박스가 끌려 올라간 것을 알 수 있다.</p>
 <p>position 속성이 없어진 초록색 박스는 1,3번 박스와 다른 스택 맥락을 갖게 되었기 때문에 자신의 z-index는 자신이 위치한 새로운 쌓임 맥락에서만 유효하다.</p>
 <h3 id="같은-쌓임-맥락에-있는-요소들-끼리의-쌓임-순서가-결정되는-법"><a href="#같은-쌓임-맥락에-있는-요소들-끼리의-쌓임-순서가-결정되는-법" class="headerlink" title="같은 쌓임 맥락에 있는 요소들 끼리의 쌓임 순서가 결정되는 법"></a>같은 쌓임 맥락에 있는 요소들 끼리의 쌓임 순서가 결정되는 법</h3><p>Smashing magazine에서 알려 준 기본 stack 형성 순위는 다음과 같다.<br><br>5번으로 갈수록 화면 앞으로 나온다.</p>
+<p><img src="https://i.stack.imgur.com/4yHZs.png" alt="stack order"></p>
 <ol>
 <li>배경과 보더를 형성하는 엘리먼트</li>
 <li>음수 값을 가진 css 프로퍼티가 있는 엘리먼트( margin : - 10px )</li>
 <li>float이 아니며 display : block인 엘리먼트</li>
 <li>float인 엘리먼트</li>
 <li>인라인 속성 엘리먼트<blockquote>
-<p>(6. 포지션 속성이 있는 엘리먼트)</p>
+<p>(6. 포지션 | z-index 속성이 있는 엘리먼트)</p>
 </blockquote>
 </li>
 </ol>
 <h3 id="부모의-쌓임-맥락과-자식의-쌓임-맥락은-또-다르다"><a href="#부모의-쌓임-맥락과-자식의-쌓임-맥락은-또-다르다" class="headerlink" title="부모의 쌓임 맥락과 자식의 쌓임 맥락은 또 다르다."></a>부모의 쌓임 맥락과 자식의 쌓임 맥락은 또 다르다.</h3><p>부모와 자식은 별개의 맥락을 형성하고, 자식은 부모의 쌓임 맥락을 따르게 된다.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// html</span><br><span class="line">&lt;div id=&quot;box1&quot;&gt;</span><br><span class="line">  &lt;span class=&quot;red&quot;&gt;Red&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div id=&quot;box2&quot;&gt;</span><br><span class="line">  &lt;span class=&quot;green&quot;&gt;Green&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;span class=&quot;blue&quot;&gt;Blue&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">// css</span><br><span class="line"></span><br><span class="line">.red, .green, .blue &#123;</span><br><span class="line">  position: absolute;</span><br><span class="line">  width: 100px;</span><br><span class="line">  color: white;</span><br><span class="line">  line-height: 100px;</span><br><span class="line">  text-align: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.red &#123;</span><br><span class="line">  z-index: 999;</span><br><span class="line">  top: 20px;</span><br><span class="line">  left: 20px;</span><br><span class="line">  background: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.green &#123;</span><br><span class="line">  z-index : 1000; </span><br><span class="line">  // green이 red보다 z-index가 높아서 화면 제일 앞쪽에 와야한다. </span><br><span class="line">  // 하지만..</span><br><span class="line">  top: 60px;</span><br><span class="line">  left: 60px;</span><br><span class="line">  background: green;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.blue &#123;</span><br><span class="line">  top: 100px;</span><br><span class="line">  left: 100px;</span><br><span class="line">  background: blue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box1 &#123;</span><br><span class="line">  position : relative;</span><br><span class="line">  z-index : 1000; </span><br><span class="line">  // red의 부모 요소가 green의 부모 요소보다 값이 크다.</span><br><span class="line">  // 그래서 red가 화면 제일 앞쪽에 위치한다.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box2 &#123;</span><br><span class="line">  position: relative;</span><br><span class="line">  z-index : 999;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="z-index/parent_context.png" alt="부모와 자식 요소 간의 맥락"></p>
+<p><img src="zindex/parent_context.png" alt="부모와 자식 요소 간의 맥락"></p>
 <p><a href="https://codepen.io/philipwalton/pen/ksBaI" target="_blank" rel="noopener">Codepen으로 확인하기</a></p>
 <h3 id="display-float인-경우"><a href="#display-float인-경우" class="headerlink" title="display:float인 경우"></a>display:float인 경우</h3><p> 포지션이 지정된 엘리먼트와 그렇지 않은 엘리먼트 사이에 위치한다.</p>
 <h3 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h3><blockquote>
@@ -218,14 +219,10 @@
 </code></pre><p>2) <a href="https://mytory.net/archives/10997" target="_blank" rel="noopener">https://mytory.net/archives/10997</a></p>
 <pre><code>&gt; 쌓임 맥락에 관한 기본적인 내용을 번역해 준 사이트
 </code></pre><p>3) <a href="https://developer.mozilla.org/ko/docs/Web/CSS/Understanding_z-index/The_stacking_context" target="_blank" rel="noopener">https://developer.mozilla.org/ko/docs/Web/CSS/Understanding_z-index/The_stacking_context</a></p>
-<blockquote>
-<p>MDN에서 제공하는 쌓임 맥락 이야기</p>
-</blockquote>
-<p> 4) <a href="https://gitlab.com/SeunghoLee/my-markup-project/issues/2" target="_blank" rel="noopener">https://gitlab.com/SeunghoLee/my-markup-project/issues/2</a></p>
-<blockquote>
-<p>정리를 깔끔하게 해주신 개발지님 깃북</p>
-</blockquote>
-
+<pre><code>&gt; MDN에서 제공하는 쌓임 맥락 이야기
+</code></pre><p> 4) <a href="https://gitlab.com/SeunghoLee/my-markup-project/issues/2" target="_blank" rel="noopener">https://gitlab.com/SeunghoLee/my-markup-project/issues/2</a></p>
+<pre><code>&gt; 정리를 깔끔하게 해주신 개발자님 깃북
+</code></pre>
         </div>
         <footer class="article-footer">
             
@@ -362,7 +359,7 @@
                             <a href="/2018/01/14/zindex/" class="thumbnail">
     
     
-        <span style="background-image:url(z-index/position_zindex_both_true.png)" alt="CSS z-index 이해하기 (1) 쌓임맥락" class="thumbnail-image"></span>
+        <span style="background-image:url(https://i.stack.imgur.com/4yHZs.png)" alt="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락" class="thumbnail-image"></span>
     
     
 </a>
@@ -371,7 +368,7 @@
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2018/01/14/zindex/" class="title">CSS z-index 이해하기 (1) 쌓임맥락</a></p>
+                            <p class="item-title"><a href="/2018/01/14/zindex/" class="title">CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락</a></p>
                             <p class="item-date"><time datetime="2018-01-14T09:38:02.000Z" itemprop="datePublished">2018-01-14</time></p>
                         </div>
                     </li>
