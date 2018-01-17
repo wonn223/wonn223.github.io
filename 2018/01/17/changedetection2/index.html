@@ -17,12 +17,12 @@
 <meta property="og:site_name" content="seokwon">
 <meta property="og:description" content="불필요한 변화감지를 막고자 NgZone을 사용하는데 실제로 브라우저 렌더링 작업이 줄어드는지 확인해봤다.  컴포넌트 트리 안에 있는 모든 컴포넌트는 트리거에 따른 변화를 감지한다. 오늘 변화 감지를 확인한 곳은 HTTP API를 활용해서 서버와 통신을 하는 부분이었다. 헤더 컴포넌트에 있는 검색창의 값은 옵저버블 이란 인터페이스를 활용하고 있다. 옵저버블">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://wonn223.github.io/2018/01/17/changedetection2/changedetection2/runOutsideAngular.png">
-<meta property="og:updated_time" content="2018-01-17T14:57:20.000Z">
+<meta property="og:image" content="https://wonn223.github.io/2018/01/17/changedetection2/runOutsideAngular.png">
+<meta property="og:updated_time" content="2018-01-17T15:10:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="앵귤러 이해하기(2) - NgZone 적용해보기">
 <meta name="twitter:description" content="불필요한 변화감지를 막고자 NgZone을 사용하는데 실제로 브라우저 렌더링 작업이 줄어드는지 확인해봤다.  컴포넌트 트리 안에 있는 모든 컴포넌트는 트리거에 따른 변화를 감지한다. 오늘 변화 감지를 확인한 곳은 HTTP API를 활용해서 서버와 통신을 하는 부분이었다. 헤더 컴포넌트에 있는 검색창의 값은 옵저버블 이란 인터페이스를 활용하고 있다. 옵저버블">
-<meta name="twitter:image" content="https://wonn223.github.io/2018/01/17/changedetection2/changedetection2/runOutsideAngular.png">
+<meta name="twitter:image" content="https://wonn223.github.io/2018/01/17/changedetection2/runOutsideAngular.png">
     
 
     
@@ -178,7 +178,7 @@
 <p>헤더 컴포넌트에 있는 검색창의 값은 옵저버블 이란 인터페이스를 활용하고 있다. 옵저버블 타입을 가지면 서버에 있는 데이터를 계속해서 요청하고 받을 수 있다. </p>
 <p>검색창에 글자를 입력할 때마다 서버로 Http Get이 이뤄지는데, 이 때 특정 시간까지 글자를 모아 서버에 검색어를 전달한다. 검색어를 전달하면 서버에서 검색결과를 주는데 이 과정에서 변화감지가 많이 일어나고 있었다.</p>
 <h3 id="NgZone-runOutsideAngular"><a href="#NgZone-runOutsideAngular" class="headerlink" title="NgZone.runOutsideAngular()"></a>NgZone.runOutsideAngular()</h3><p>변화감지를 줄이려면 검색결과가 나오기 전까지 검색 과정의 작업을 앵귤러가 인식하지 못해야한다. 앵귤러 바깥 공간에서 검색어를 서버에 전달하고, 검색결과를 다시 앵귤러 공간으로 가지고 오는 방법이 <code>runOutsideAngular</code>다.</p>
-<p><img src="changedetection2/runOutsideAngular.png" alt="runOutsideAngular 적용"></p>
+<p><img src="runOutsideAngular.png" alt="runOutsideAngular 적용"></p>
 
         </div>
         <footer class="article-footer">
@@ -316,7 +316,7 @@
                             <a href="/2018/01/17/changedetection2/" class="thumbnail">
     
     
-        <span style="background-image:url(changedetection2/runOutsideAngular.png)" alt="앵귤러 이해하기(2) - NgZone 적용해보기" class="thumbnail-image"></span>
+        <span style="background-image:url(runOutsideAngular.png)" alt="앵귤러 이해하기(2) - NgZone 적용해보기" class="thumbnail-image"></span>
     
     
 </a>
