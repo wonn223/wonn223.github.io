@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Tag: z-index, css, 쌓임맥락, stacking context, position | seokwon</title>
+    <title>Tag: change detection, 앵귤러2, 변화 감지, ngzone | seokwon</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="description" content="seokwon&apos;s blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="seokwon">
-<meta property="og:url" content="https://wonn223.github.io/tags/z-index-css-쌓임맥락-stacking-context-position/index.html">
+<meta property="og:url" content="https://wonn223.github.io/tags/change-detection-앵귤러2-변화-감지-ngzone/index.html">
 <meta property="og:site_name" content="seokwon">
 <meta property="og:description" content="seokwon&apos;s blog">
 <meta property="og:locale" content="en">
@@ -129,7 +129,7 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>Tag: <em>z-index, css, 쌓임맥락, stacking context, position</em>
+    <i class="icon fa fa-tag"></i>Tag: <em>change detection, 앵귤러2, 변화 감지, ngzone</em>
     </h1>
 </div>
                         <div class="main-body-content">
@@ -152,17 +152,17 @@
         <article class="article article-summary">
     <div class="article-summary-inner">
         
-        <a href="/2018/01/14/zindex/" class="thumbnail">
+        <a href="/2018/01/17/changedetection2/" class="thumbnail">
     
     
-        <span style="background-image:url(https://i.stack.imgur.com/4yHZs.png)" alt="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락" class="thumbnail-image"></span>
+        <span style="background-image:url(changedetection2/runOutsideAngular.png)" alt="앵귤러 이해하기(2) - NgZone 적용해보기" class="thumbnail-image"></span>
     
     
         
 <span class="comment-counter">
     <i class="fa fa-comments-o"></i>
     
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="https://wonn223.github.io/2018/01/14/zindex/">0</span>
+        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="https://wonn223.github.io/2018/01/17/changedetection2/">0</span>
     
 </span>
 
@@ -175,18 +175,21 @@
             <div class="category">
             
             </div>
-            <div class="date"><time datetime="2018-01-14T09:38:02.000Z" itemprop="datePublished">2018-01-14</time></div>
+            <div class="date"><time datetime="2018-01-17T14:57:20.000Z" itemprop="datePublished">2018-01-17</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2018/01/14/zindex/">CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락</a>
+        <a href="/2018/01/17/changedetection2/">앵귤러 이해하기(2) - NgZone 적용해보기</a>
         </h1>
     
 
         <p class="article-excerpt">
             
-css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이
+불필요한 변화감지를 막고자 NgZone을 사용하는데 실제로 브라우저 렌더링 작업이 줄어드는지 확인해봤다.
+
+컴포넌트 트리 안에 있는 모든 컴포넌트는 트리거에 따른 변화를 감지한다. 오늘 변화 감지를 확인한 곳은 HTTP API를 활용해서 서버와 통신을 하는 부분이었다.
+헤더 컴포넌트에 있는 검색창의 값은 옵저버블 이란 인터페이스를 활용하고 있다. 옵저버블
         </p>
     </div>
 </article>
