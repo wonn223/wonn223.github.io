@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Tag: z-index, css, 쌓임맥락, stacking context, position | seokwon</title>
+    <title>Tag: 비동기, 웹 워커, AJAX, IndexedDB, 스레드, HTML5 | seokwon</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="description" content="seokwon&apos;s blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="seokwon">
-<meta property="og:url" content="https://wonn223.github.io/tags/z-index-css-쌓임맥락-stacking-context-position/index.html">
+<meta property="og:url" content="https://wonn223.github.io/tags/비동기-웹-워커-AJAX-IndexedDB-스레드-HTML5/index.html">
 <meta property="og:site_name" content="seokwon">
 <meta property="og:description" content="seokwon&apos;s blog">
 <meta property="og:locale" content="en">
@@ -129,7 +129,7 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>Tag: <em>z-index, css, 쌓임맥락, stacking context, position</em>
+    <i class="icon fa fa-tag"></i>Tag: <em>비동기, 웹 워커, AJAX, IndexedDB, 스레드, HTML5</em>
     </h1>
 </div>
                         <div class="main-body-content">
@@ -152,17 +152,17 @@
         <article class="article article-summary">
     <div class="article-summary-inner">
         
-        <a href="/2018/01/14/zindex/" class="thumbnail">
+        <a href="/2018/01/19/async/" class="thumbnail">
     
     
-        <span style="background-image:url(https://i.stack.imgur.com/4yHZs.png)" alt="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락" class="thumbnail-image"></span>
+        <span class="thumbnail-image thumbnail-none"></span>
     
     
         
 <span class="comment-counter">
     <i class="fa fa-comments-o"></i>
     
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="https://wonn223.github.io/2018/01/14/zindex/">0</span>
+        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="https://wonn223.github.io/2018/01/19/async/">0</span>
     
 </span>
 
@@ -175,18 +175,18 @@
             <div class="category">
             
             </div>
-            <div class="date"><time datetime="2018-01-14T09:38:02.000Z" itemprop="datePublished">2018-01-14</time></div>
+            <div class="date"><time datetime="2018-01-19T10:52:47.000Z" itemprop="datePublished">2018-01-19</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2018/01/14/zindex/">CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락</a>
+        <a href="/2018/01/19/async/">Javascript 이해하기 - 일을 분담시키는 비동기 로직과 스레드</a>
         </h1>
     
 
         <p class="article-excerpt">
             
-css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이
+브라우저는 기본적으로 메인 스레드라는 스레드 하나만 사용한다. 처리할 게 많아도 스레드는 한 번에 하나씩만 처리할 수 있다. 그동안 다른 작업은 큐에 있으면서 스레드의 처리를 기다리는데, 이 때 스레드가 작동을 멈춰야 하는 경우가 있다. 처리해야 하는 일이 동기적인 성격을 가진 경우인데(동기적으로 서버 데이터 불러오기), 이 때 스레드는 처리해야할 값이 
         </p>
     </div>
 </article>
