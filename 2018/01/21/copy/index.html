@@ -3,26 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락 | seokwon</title>
+    <title>자바스크립트 - 객체 복사하기 | seokwon</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="z-index, css, 쌓임맥락, stacking context, position" />
+        <meta name="keywords" content="깊은 복사, 얇은 복사, deep copy, 참조, 참조 복사" />
     
-    <meta name="description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이">
-<meta name="keywords" content="z-index, css, 쌓임맥락, stacking context, position">
+    <meta name="description" content="객체를 참조하는 경우가 많아지면 제어 흐름에 어려움을 겪는다는 이야길 많이 접하고 있다. 제어흐름을 신경써야할 만큼 큰 규모의 웹 앱을 만들어보지 않았지만, 객체의 참조를 피할 수 있는 법을 알아봤다.  새 객체 만들기 : Object.create(proto[, propertiesObj])인자 proto : 새롭게 만들어질 객체의 프로토타입이 될 객체12">
+<meta name="keywords" content="깊은 복사, 얇은 복사, deep copy, 참조, 참조 복사">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서&#x2F; 쌓임 맥락">
-<meta property="og:url" content="https://wonn223.github.io/2018/01/14/zindex/index.html">
+<meta property="og:title" content="자바스크립트 - 객체 복사하기">
+<meta property="og:url" content="https://wonn223.github.io/2018/01/21/copy/index.html">
 <meta property="og:site_name" content="seokwon">
-<meta property="og:description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이">
+<meta property="og:description" content="객체를 참조하는 경우가 많아지면 제어 흐름에 어려움을 겪는다는 이야길 많이 접하고 있다. 제어흐름을 신경써야할 만큼 큰 규모의 웹 앱을 만들어보지 않았지만, 객체의 참조를 피할 수 있는 법을 알아봤다.  새 객체 만들기 : Object.create(proto[, propertiesObj])인자 proto : 새롭게 만들어질 객체의 프로토타입이 될 객체12">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://i.stack.imgur.com/4yHZs.png">
-<meta property="og:updated_time" content="2018-01-15T03:20:56.000Z">
+<meta property="og:updated_time" content="2018-01-21T09:38:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서&#x2F; 쌓임 맥락">
-<meta name="twitter:description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이">
-<meta name="twitter:image" content="https://i.stack.imgur.com/4yHZs.png">
+<meta name="twitter:title" content="자바스크립트 - 객체 복사하기">
+<meta name="twitter:description" content="객체를 참조하는 경우가 많아지면 제어 흐름에 어려움을 겪는다는 이야길 많이 접하고 있다. 제어흐름을 신경써야할 만큼 큰 규모의 웹 앱을 만들어보지 않았지만, 객체의 참조를 피할 수 있는 법을 알아봤다.  새 객체 만들기 : Object.create(proto[, propertiesObj])인자 proto : 새롭게 만들어질 객체의 프로토타입이 될 객체12">
     
 
     
@@ -139,14 +137,14 @@
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-zindex" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-copy" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락
+        자바스크립트 - 객체 복사하기
         </h1>
     
 
@@ -156,15 +154,15 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2018/01/14/zindex/" class="article-date">
-            <time datetime="2018-01-14T09:38:02.000Z" itemprop="datePublished">2018-01-14</time>
+        <a href="/2018/01/21/copy/" class="article-date">
+            <time datetime="2018-01-21T09:38:43.000Z" itemprop="datePublished">2018-01-21</time>
         </a>
     </div>
 
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/z-index-css-쌓임맥락-stacking-context-position/">z-index, css, 쌓임맥락, stacking context, position</a>
+        <a class="tag-link" href="/tags/깊은-복사-얇은-복사-deep-copy-참조-참조-복사/">깊은 복사, 얇은 복사, deep copy, 참조, 참조 복사</a>
     </div>
 
             </div>
@@ -172,62 +170,39 @@
         
         <div class="article-entry" itemprop="articleBody">
             <blockquote>
-<p>css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이란 것을 알게 되었다.</p>
+<p>객체를 참조하는 경우가 많아지면 제어 흐름에 어려움을 겪는다는 이야길 많이 접하고 있다. 제어흐름을 신경써야할 만큼 큰 규모의 웹 앱을 만들어보지 않았지만, 객체의 참조를 피할 수 있는 법을 알아봤다.</p>
 </blockquote>
-<h3 id="쌓임맥락"><a href="#쌓임맥락" class="headerlink" title="쌓임맥락"></a>쌓임맥락</h3><p>HTML문서가 DOM에서 렌더링 트리로 변할 때까지 트리의 렌더 오브젝트(DOM에선 노드)는 문서에 적힌 위계를 그대로 가지고 여러 개의 층(stack)을 이룬다. 스택에서 볼 수 있는 층 간의 위계를 쌓임 순서/위계(stacking order)라고 하며 각 층에서 오브젝트들이 저마다 형성한 위계를 쌓임 맥락(stacking context)이라 한다.</p>
-<p>층이 쌓이는 순서는 기본적으로 HTML문서에 선언된 위치에 따라 결정되지만, 레이어에 변화를 일으키는 css프로퍼티(position, z-index)에 따라 그 순서가 달라진다. 이는 브라우저의 렌더링 작업에도 영향을 미친다. (브라우저 렌더링 작업에 관한 글은 따로 정리.)</p>
-<blockquote>
-<p><a href="https://philipwalton.com/articles/what-no-one-told-you-about-z-index/" target="_blank" rel="noopener">philpwalton의 글 중..</a></p>
-<p>어떤 엘리먼트의 쌓임 맥락(stacking context)이 쌓임 순서(stacking order) 상 가장 낮은 곳에 있는 경우엔 z-index의 값이 1억이라도, 쌓임 순서가 높은 엘리먼트보다 화면 앞에 위치할 수 없다.</p>
-</blockquote>
-<h3 id="쌓임-맥락을-만드는-요소들"><a href="#쌓임-맥락을-만드는-요소들" class="headerlink" title="쌓임 맥락을 만드는 요소들"></a>쌓임 맥락을 만드는 요소들</h3><ul>
-<li>문서의 뿌리 요소 엘리먼트 html // 예제</li>
-<li>position 속성이 있고, z-index를 auto가 아닌 정수값으로 지정한 엘리먼트 // 예제</li>
-<li>opacity를 1보다 낮게 설정한 엘리먼트</li>
-<li>z-index를 정수값 지정했고 flex속성을 가진 엘리먼트 </li>
-<li>z-index를 정수값 || auto이고, position:fixed를 가진 엘리먼트 </li>
-</ul>
-<h3 id="예제"><a href="#예제" class="headerlink" title="예제"></a>예제</h3><p><em>우선 z-index는 요소에 position 프로퍼티가 있을 때만 유효하다.</em> position 속성이 없으면 z-index를 높여도 기존의 화면이 달라지지 않는다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#box_1 &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: relative;</span><br><span class="line">    z-index: 99;</span><br><span class="line">    background: goldenrod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box_2 &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: relative;</span><br><span class="line">    z-index: 500;</span><br><span class="line">    margin-top: -72px;</span><br><span class="line">    background: darkgreen;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box_3 &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: relative;</span><br><span class="line">    z-index: 1;</span><br><span class="line">    background: darkcyan;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="position_zindex_both_true.png" alt="포지션 값이 있을 때 z-index"><br><img src="poistion_false.png" alt="포지션 값이 없을 때 z-index"></p>
-<p>왼쪽이 세 개의 id에 position과 z-index 모두 적용했을 때 모습이다. 초록색 박스(div_2)가 금색 박스보다 z-index가 높고 <code>margin-top</code>속성을 가지고 있어서 금색 박스(div_1)를 덮었다. 오른쪽의 경우는 초록색 박스의 position 속성을 껐을 때다. z-index 속성이 무효화되고, 초록색 박스의 margin-top 값만큼 청록색 박스가 끌려 올라간 것을 알 수 있다.</p>
-<p>position 속성이 없어진 초록색 박스는 1,3번 박스와 다른 스택 맥락을 갖게 되었기 때문에 자신의 z-index는 자신이 위치한 새로운 쌓임 맥락에서만 유효하다.</p>
-<h3 id="같은-쌓임-맥락에-있는-요소들-끼리의-쌓임-순서가-결정되는-법"><a href="#같은-쌓임-맥락에-있는-요소들-끼리의-쌓임-순서가-결정되는-법" class="headerlink" title="같은 쌓임 맥락에 있는 요소들 끼리의 쌓임 순서가 결정되는 법"></a>같은 쌓임 맥락에 있는 요소들 끼리의 쌓임 순서가 결정되는 법</h3><p>Smashing magazine에서 알려 준 기본 stack 형성 순위는 다음과 같다.<br><br>5번으로 갈수록 화면 앞으로 나온다.</p>
-<p><img src="https://i.stack.imgur.com/4yHZs.png" alt="stack order"></p>
-<ol>
-<li>배경과 보더를 형성하는 엘리먼트</li>
-<li>음수 값을 가진 css 프로퍼티가 있는 엘리먼트( margin : - 10px )</li>
-<li>float이 아니며 display : block인 엘리먼트</li>
-<li>float인 엘리먼트</li>
-<li>인라인 속성 엘리먼트<br>(6. 포지션 | z-index 속성이 있는 엘리먼트)</li>
+<h3 id="새-객체-만들기-Object-create-proto-propertiesObj"><a href="#새-객체-만들기-Object-create-proto-propertiesObj" class="headerlink" title="새 객체 만들기 : Object.create(proto[, propertiesObj])"></a>새 객체 만들기 : Object.create(proto[, propertiesObj])</h3><p>인자 <code>proto</code> : 새롭게 만들어질 객체의 프로토타입이 될 객체<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const person = &#123;</span><br><span class="line">    name: &apos;&apos;,</span><br><span class="line">    type : &quot;인간&quot;,</span><br><span class="line">    getName : function() &#123;</span><br><span class="line">        return this.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 복사</span><br><span class="line">let man1 = Object.create(human);</span><br><span class="line">man1.name = &apos;man 1&apos;;</span><br><span class="line"></span><br><span class="line">console.log(man1.type);</span><br><span class="line">console.log(man1.getName());</span><br></pre></td></tr></table></figure></p>
+<h3 id="Object-assign-target-…sources"><a href="#Object-assign-target-…sources" class="headerlink" title="Object.assign(target, …sources)"></a>Object.assign(target, …sources)</h3><p>sources : target의 일원이 될 여러 객체를 일컫는다. 객체 안에 enumerable한 속성이 있으면 그 속성을 target객체로 복사한다. 주의할 점은 객체의 프로퍼티가 객체를 참조하고 있으면, target객체로 <em>참조의 복사</em>가 일어난다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    b: &#123;</span><br><span class="line">        c: 2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let newObj = Object.assign(&#123;&#125;, obj);</span><br><span class="line"></span><br><span class="line">console.log(newObj); //obj와 똑같은 형태가 만들어짐.</span><br><span class="line"></span><br><span class="line">newObj.a = 10;</span><br><span class="line"></span><br><span class="line">console.log(newObj.a); // 10 </span><br><span class="line">console.log(obj.a); // 1</span><br><span class="line"></span><br><span class="line">&lt;!-- newObj만 달라짐. 프로퍼티 값이 immutable이므로 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 하지만 --&gt;</span><br><span class="line">newObj.b.c = 30;</span><br><span class="line">console.log(obj.b.c); // 30 obj도 객체의 프로퍼티가 달라졌다.</span><br></pre></td></tr></table></figure>
+<p>기존의 obj.b가 가진 값이 원시값이 아니라 mutable한 객체였기 때문에, newObj.b와 obj.b가 같은 메모리 주소를 가리키고 있는 상태다. 즉, obj.b가 가리키고 있는 메모리 주소의 참조가 newobj.b로 옮겨진 것.</p>
+<h3 id="대안"><a href="#대안" class="headerlink" title="대안"></a>대안</h3><ol>
+<li>JSON.parse(JSON.stringify(object))를 활용한다.</li>
 </ol>
-<h3 id="부모의-쌓임-맥락과-자식의-쌓임-맥락은-또-다르다"><a href="#부모의-쌓임-맥락과-자식의-쌓임-맥락은-또-다르다" class="headerlink" title="부모의 쌓임 맥락과 자식의 쌓임 맥락은 또 다르다."></a>부모의 쌓임 맥락과 자식의 쌓임 맥락은 또 다르다.</h3><p>부모와 자식은 별개의 맥락을 형성하고, 자식은 부모의 쌓임 맥락을 따르게 된다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// html</span><br><span class="line">&lt;div id=&quot;box1&quot;&gt;</span><br><span class="line">  &lt;span class=&quot;red&quot;&gt;Red&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div id=&quot;box2&quot;&gt;</span><br><span class="line">  &lt;span class=&quot;green&quot;&gt;Green&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;span class=&quot;blue&quot;&gt;Blue&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">// css</span><br><span class="line"></span><br><span class="line">.red, .green, .blue &#123;</span><br><span class="line">  position: absolute;</span><br><span class="line">  width: 100px;</span><br><span class="line">  color: white;</span><br><span class="line">  line-height: 100px;</span><br><span class="line">  text-align: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.red &#123;</span><br><span class="line">  z-index: 999;</span><br><span class="line">  top: 20px;</span><br><span class="line">  left: 20px;</span><br><span class="line">  background: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.green &#123;</span><br><span class="line">  z-index : 1000; </span><br><span class="line">  // green이 red보다 z-index가 높다. </span><br><span class="line">  // span 요소가 형성한 쌓임 맥락에선 green이 화면 제일 앞쪽에 위치한다. 하지만..</span><br><span class="line">  top: 60px;</span><br><span class="line">  left: 60px;</span><br><span class="line">  background: green;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.blue &#123;</span><br><span class="line">  top: 100px;</span><br><span class="line">  left: 100px;</span><br><span class="line">  background: blue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box1 &#123;</span><br><span class="line">  position : relative;</span><br><span class="line">  z-index : 1000; </span><br><span class="line">  // red 부모 요소의 z-index가 green 부모 요소의 것보다 값이 크다.</span><br><span class="line">  // 그래서 red가 화면 제일 앞쪽에 위치한다.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box2 &#123;</span><br><span class="line">  position: relative;</span><br><span class="line">  z-index : 999;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="parent_context.png" alt="부모와 자식 요소 간의 맥락"></p>
-<p><a href="https://codepen.io/philipwalton/pen/ksBaI" target="_blank" rel="noopener">Codepen으로 확인하기</a></p>
-<h3 id="display-float인-경우"><a href="#display-float인-경우" class="headerlink" title="display:float인 경우"></a>display:float인 경우</h3><p> 포지션이 지정된 엘리먼트와 그렇지 않은 엘리먼트 사이에 위치한다.</p>
-<h3 id="개념을-접하고-나서"><a href="#개념을-접하고-나서" class="headerlink" title="개념을 접하고 나서"></a>개념을 접하고 나서</h3><blockquote>
-<p>[philpwalton의 글 중..]</p>
-</blockquote>
-<p>…If you’re setting a z-index of a billion on an element and it’s not moving forward in the stacking order, take a look up its ancestor tree and see if any of its parents form stacking contexts</p>
-<p>만약 어떤 요소에 z-index를 줬는데 변화가 일어나지 않았다면 position 프로퍼티가 선언되었는지를 확인하거나, 부모 요소에 쌓임 맥락이 형성되어 있는지를 확인하면 원인을 파악할 수 있겠다는 생각이 들었다.</p>
-<p>1) <a href="https://coding.smashingmagazine.com/2009/09/the-z-index-css-property-a-comprehensive-look/" target="_blank" rel="noopener">https://coding.smashingmagazine.com/2009/09/the-z-index-css-property-a-comprehensive-look/</a></p>
-<pre><code>&gt; smashingmagazine에서 제공하는 쌓임맥락 설명. 코드 예제와 z-index 적용된 사이트를 소개하고 있다.
-</code></pre><p>2) <a href="https://mytory.net/archives/10997" target="_blank" rel="noopener">https://mytory.net/archives/10997</a></p>
-<pre><code>&gt; 쌓임 맥락에 관한 기본적인 내용을 번역해 준 사이트
-</code></pre><p>3) <a href="https://developer.mozilla.org/ko/docs/Web/CSS/Understanding_z-index/The_stacking_context" target="_blank" rel="noopener">https://developer.mozilla.org/ko/docs/Web/CSS/Understanding_z-index/The_stacking_context</a></p>
-<pre><code>&gt; MDN에서 제공하는 쌓임 맥락 이야기
-</code></pre><p> 4) <a href="https://gitlab.com/SeunghoLee/my-markup-project/issues/2" target="_blank" rel="noopener">https://gitlab.com/SeunghoLee/my-markup-project/issues/2</a></p>
-<pre><code>&gt; 정리를 깔끔하게 해주신 개발자님 깃북
-</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let obj2 = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    b: &#123;</span><br><span class="line">        c: 2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let newObj2 = JSON.parse(JSON.stringify(obj2));</span><br><span class="line"></span><br><span class="line">newObj2.b.c = 20;</span><br><span class="line">console.log(obj2); // &#123; a: 1, b: &#123; c: 2 &#125; &#125;</span><br><span class="line">console.log(newObj2); // &#123; a: 1, b: &#123; c: 20 &#125; &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>단, JSON.parse는 메소드 복사가 안 된다..</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//scoth.io 예제</span><br><span class="line"></span><br><span class="line">let obj3 = &#123;</span><br><span class="line">    name: &apos;scoth.io&apos;,</span><br><span class="line">    exec: function exec()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let method1 = Object.assign(&#123;&#125;, obj3);</span><br><span class="line">let method2 = JSON.parse(JSON.stringify(obj3));</span><br><span class="line"></span><br><span class="line">console.log(method1);</span><br><span class="line">// &#123; name: &apos;scoth.io&apos;, exec: [Function: exec] &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">console.log(method2); </span><br><span class="line">// &#123; name: &apos;scoth.io&apos; &#125;</span><br></pre></td></tr></table></figure>
+<p> <a href="https://stackoverflow.com/questions/18089033/json-stringify-does-not-process-object-methods" target="_blank" rel="noopener">함수객체가 복사되지 않는 이유는 JSON에서 함수를 데이터로 보지 않기 때문이다.</a> (함수 제외)오브젝트, 스트링, 넘버, 배열, 불리언을 제외한 유형은 인코딩 과정에서 무시된다고 한다. JSON메소드를 사용하지 않고 아래의 링크처럼 직접 깊은 복사를 구현한 함수를 쓰기도 한다.</p>
+<p> <a href="https://jsperf.com/deep-copy-vs-json-stringify-json-parse" target="_blank" rel="noopener">https://jsperf.com/deep-copy-vs-json-stringify-json-parse</a></p>
+<ol>
+<li>ES6 스프레드(…) 연산자 사용<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 스프레드 연산자는 새 객체에 enumerable한 객체를 할당하는 데 사용한다.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const original = &#123; a : &#123; b: 1&#125;&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const falseCopy = &#123;...original&#125;;</span><br><span class="line"></span><br><span class="line">falseCopy.a.b = 10;</span><br><span class="line"></span><br><span class="line">console.log(original); // &#123; a: &#123; b: 10 &#125; &#125;</span><br><span class="line">console.log(falseCopy); // &#123; a: &#123; b: 10 &#125; &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const original = &#123; a: &#123; b: 1 &#125;, anotherRandomValue: 42 &#125;;</span><br><span class="line"></span><br><span class="line">// Always put the original with the spread operator first</span><br><span class="line">const falseCopy = &#123; ...original, a: &#123; b: 2 &#125; &#125;;</span><br><span class="line"></span><br><span class="line">console.log(falseCopy) // logs &#123; a: &#123; b: 2 &#125;, anotherRandomValue: 42 &#125;</span><br><span class="line">console.log(original) // logs &#123; a: &#123; b: 1 &#125;, anotherRandomValue: 42 &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>복사가 되지 않는 것들 : 프로토타입 체인에 있거나 non-enumerable한 객체<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">let someObj = &#123;</span><br><span class="line">    a: 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// someObj는 obj의 프로토타입 객체가 되었으므로 복사되지 않음.</span><br><span class="line">console.log(obj.__proto__); // &#123; a : 2&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let obj = Object.create(someObj, &#123;</span><br><span class="line">    b : &#123;</span><br><span class="line">        value: 2,</span><br><span class="line">        // enumerable : false이므로 복사되지 않는다.</span><br><span class="line">    &#125;, </span><br><span class="line">    c : &#123;</span><br><span class="line">        value: 3,</span><br><span class="line">        enumerable: true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">console.log(Object.getOwnPropertyDescriptor(obj, &apos;b&apos;));</span><br><span class="line"></span><br><span class="line">&#123; value: 2,</span><br><span class="line">  writable: false,</span><br><span class="line">  enumerable: false,</span><br><span class="line">  configurable: false &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let objCopy = Object.assign(&#123;&#125;, obj)</span><br><span class="line"></span><br><span class="line">console.log(objCopy); // &#123; c : 3 &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>프로퍼티가 enumerable한 성격인지 확인하고 싶다면, Object에 내장된 <code>getOwnPropertyDescriptor</code>나 <code>propertyIsEnumerable()</code>란 메소드를 사용한다.</p>
+
         </div>
         <footer class="article-footer">
             
 
 
 
-    <a data-url="https://wonn223.github.io/2018/01/14/zindex/" data-id="cjcolc9uq000ctmp1dhkmak7f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://wonn223.github.io/2018/01/21/copy/" data-id="cjcolc9um0008tmp1ao256o7m" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -332,20 +307,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2018/01/15/changedetection/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            앵귤러 이해하기 (1) 변화 감지 - 코딩하는(?) 타이밍 잡기
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2018/01/13/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/01/19/async/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">Hello World</p>
+        <p class="article-nav-title">Javascript 이해하기 - 일을 분담시키는 비동기 로직과 스레드</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -541,7 +506,7 @@
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://wonn223.github.io/2018/01/14/zindex/';
+    var disqus_url = 'https://wonn223.github.io/2018/01/21/copy/';
     
     (function() {
     var dsq = document.createElement('script');
