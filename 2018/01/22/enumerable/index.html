@@ -3,26 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>앵귤러 이해하기 (1) 변화 감지 - 코딩하는(?) 타이밍 잡기 | seokwon</title>
+    <title>자바스크립트 이해하기 - 프로퍼티와 Enumerable | seokwon</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="앵귤러2+, change detection" />
+        <meta name="keywords" content="es5, enumerable, 자바스크립트, 프로퍼티" />
     
-    <meta name="description" content="앵귤러로 작업을 하다 보면 클릭/키보드 같은 입력 이벤트가 발생할 때 템플릿 스타일이나 프로퍼티 값을 바꿀 때가 많다. 변화가 일어나는 타이밍이 있어야 작업을 할 수 있다는 생각이 들 정도인데, 입력 이벤트 외에 무엇이 또 변화를 일으킬까 궁금해졌다. 이 부분을 알면 코드 짜기가 수월해질 것 같았다.   변화를 일으키는 트리거(Trigger) 3가지pas">
-<meta name="keywords" content="앵귤러2+, change detection">
+    <meta name="description" content="객체 안에 선언한 프로퍼티는 키와 값으로만 이루어진 개념이라 생각했었는데 어트리뷰트까지 가지고 있었고, 그 종류도 프로퍼티 성격에 따라 나뉜다는 걸 알았다.  configurable/writable/enumerable 등등 여러 어트리뷰트 중에서 Enumerable 어트리뷰트를 좀더 찾아봤다.  프로퍼티 별 어트리뷰트 : 데이터 프로퍼티와 접근자 프로퍼티">
+<meta name="keywords" content="es5, enumerable, 자바스크립트, 프로퍼티">
 <meta property="og:type" content="article">
-<meta property="og:title" content="앵귤러 이해하기 (1) 변화 감지 - 코딩하는(?) 타이밍 잡기">
-<meta property="og:url" content="https://wonn223.github.io/2018/01/15/changedetection/index.html">
+<meta property="og:title" content="자바스크립트 이해하기 - 프로퍼티와 Enumerable">
+<meta property="og:url" content="https://wonn223.github.io/2018/01/22/enumerable/index.html">
 <meta property="og:site_name" content="seokwon">
-<meta property="og:description" content="앵귤러로 작업을 하다 보면 클릭/키보드 같은 입력 이벤트가 발생할 때 템플릿 스타일이나 프로퍼티 값을 바꿀 때가 많다. 변화가 일어나는 타이밍이 있어야 작업을 할 수 있다는 생각이 들 정도인데, 입력 이벤트 외에 무엇이 또 변화를 일으킬까 궁금해졌다. 이 부분을 알면 코드 짜기가 수월해질 것 같았다.   변화를 일으키는 트리거(Trigger) 3가지pas">
+<meta property="og:description" content="객체 안에 선언한 프로퍼티는 키와 값으로만 이루어진 개념이라 생각했었는데 어트리뷰트까지 가지고 있었고, 그 종류도 프로퍼티 성격에 따라 나뉜다는 걸 알았다.  configurable/writable/enumerable 등등 여러 어트리뷰트 중에서 Enumerable 어트리뷰트를 좀더 찾아봤다.  프로퍼티 별 어트리뷰트 : 데이터 프로퍼티와 접근자 프로퍼티">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://blog.lacolaco.net/img/angular-2-change-detection-explained/cd-tree-7.png">
-<meta property="og:updated_time" content="2018-01-17T15:10:34.000Z">
+<meta property="og:image" content="http://cfile9.uf.tistory.com/image/231B243E57A1CA6E11B92F">
+<meta property="og:updated_time" content="2018-01-22T09:33:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="앵귤러 이해하기 (1) 변화 감지 - 코딩하는(?) 타이밍 잡기">
-<meta name="twitter:description" content="앵귤러로 작업을 하다 보면 클릭/키보드 같은 입력 이벤트가 발생할 때 템플릿 스타일이나 프로퍼티 값을 바꿀 때가 많다. 변화가 일어나는 타이밍이 있어야 작업을 할 수 있다는 생각이 들 정도인데, 입력 이벤트 외에 무엇이 또 변화를 일으킬까 궁금해졌다. 이 부분을 알면 코드 짜기가 수월해질 것 같았다.   변화를 일으키는 트리거(Trigger) 3가지pas">
-<meta name="twitter:image" content="https://blog.lacolaco.net/img/angular-2-change-detection-explained/cd-tree-7.png">
+<meta name="twitter:title" content="자바스크립트 이해하기 - 프로퍼티와 Enumerable">
+<meta name="twitter:description" content="객체 안에 선언한 프로퍼티는 키와 값으로만 이루어진 개념이라 생각했었는데 어트리뷰트까지 가지고 있었고, 그 종류도 프로퍼티 성격에 따라 나뉜다는 걸 알았다.  configurable/writable/enumerable 등등 여러 어트리뷰트 중에서 Enumerable 어트리뷰트를 좀더 찾아봤다.  프로퍼티 별 어트리뷰트 : 데이터 프로퍼티와 접근자 프로퍼티">
+<meta name="twitter:image" content="http://cfile9.uf.tistory.com/image/231B243E57A1CA6E11B92F">
     
 
     
@@ -139,14 +139,14 @@
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-changedetection" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-enumerable" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        앵귤러 이해하기 (1) 변화 감지 - 코딩하는(?) 타이밍 잡기
+        자바스크립트 이해하기 - 프로퍼티와 Enumerable
         </h1>
     
 
@@ -156,15 +156,15 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2018/01/15/changedetection/" class="article-date">
-            <time datetime="2018-01-14T16:20:49.000Z" itemprop="datePublished">2018-01-15</time>
+        <a href="/2018/01/22/enumerable/" class="article-date">
+            <time datetime="2018-01-22T09:33:55.000Z" itemprop="datePublished">2018-01-22</time>
         </a>
     </div>
 
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/앵귤러2-change-detection/">앵귤러2+, change detection</a>
+        <a class="tag-link" href="/tags/es5-enumerable-자바스크립트-프로퍼티/">es5, enumerable, 자바스크립트, 프로퍼티</a>
     </div>
 
             </div>
@@ -172,58 +172,60 @@
         
         <div class="article-entry" itemprop="articleBody">
             <blockquote>
-<p>앵귤러로 작업을 하다 보면 클릭/키보드 같은 입력 이벤트가 발생할 때 템플릿 스타일이나 프로퍼티 값을 바꿀 때가 많다. 변화가 일어나는 타이밍이 있어야 작업을 할 수 있다는 생각이 들 정도인데, 입력 이벤트 외에 무엇이 또 변화를 일으킬까 궁금해졌다. 이 부분을 알면 코드 짜기가 수월해질 것 같았다. </p>
+<p>객체 안에 선언한 프로퍼티는 키와 값으로만 이루어진 개념이라 생각했었는데 어트리뷰트까지 가지고 있었고, 그 종류도 프로퍼티 성격에 따라 나뉜다는 걸 알았다.  configurable/writable/enumerable 등등 여러 어트리뷰트 중에서 Enumerable 어트리뷰트를 좀더 찾아봤다.</p>
 </blockquote>
-<h2 id="변화를-일으키는-트리거-Trigger-3가지"><a href="#변화를-일으키는-트리거-Trigger-3가지" class="headerlink" title="변화를 일으키는 트리거(Trigger) 3가지"></a>변화를 일으키는 트리거(Trigger) 3가지</h2><p>pascal precht가 말한(변화 감지 발표를 많이 하신 분이다) 변화 트리거는 3가지다. 트리거가 만드는 변화에 맞춰 뷰나 컴포넌트의 데이터를 어떻게 처리할 지 구상하면 될 것 같다.</p>
+<h3 id="프로퍼티-별-어트리뷰트-데이터-프로퍼티와-접근자-프로퍼티"><a href="#프로퍼티-별-어트리뷰트-데이터-프로퍼티와-접근자-프로퍼티" class="headerlink" title="프로퍼티 별 어트리뷰트 : 데이터 프로퍼티와 접근자 프로퍼티"></a>프로퍼티 별 어트리뷰트 : 데이터 프로퍼티와 접근자 프로퍼티</h3><p>1) 데이터 프로퍼티</p>
 <ul>
-<li>Events(이벤트) - click, submit…</li>
-<li>XHR(서버와의 통신) - Fetching data from a remote server(HTTP.get()…)</li>
-<li>Timers(타이머) - setTimeout(), setInterval() </li>
+<li>value와 writable 어트리뷰트를 가지고 있다. </li>
+<li>value는 프로퍼티가 가지고 있는 값을 말한다.</li>
+<li>writable은 재할당 가능 여부를 알려주는 어트리뷰트다.</li>
 </ul>
-<p>그 외 앵귤러에 생명 주기와 관련된 메소드가 있는데, 이 메소드의 함수 바디 안에서 모델의 변경 사항을 뷰에 반영시키는 일을 할 수 있다. </p>
-<p><img src="lifecycle.png" alt="앵귤러 라이프 사이클 스크린샷"></p>
-<p><br><br>참고) 이웅재 개발자님 강의 중 <a href="https://www.inflearn.com/course-status-2/" target="_blank" rel="noopener">https://www.inflearn.com/course-status-2/</a></p>
-<p><br></p>
-<h3 id="앵귤러의-변화-감지-방식-‘위에서-아래로’-모두가-아는-변화"><a href="#앵귤러의-변화-감지-방식-‘위에서-아래로’-모두가-아는-변화" class="headerlink" title="앵귤러의 변화 감지 방식 : ‘위에서 아래로’ 모두가 아는 변화"></a>앵귤러의 변화 감지 방식 : ‘위에서 아래로’ 모두가 아는 변화</h3><p><img src="https://blog.lacolaco.net/img/angular-2-change-detection-explained/cd-tree-7.png" alt="change detection"></p>
-<blockquote>
-<p>빨간색으로 칠해진 컴포넌트는 특정 컴포넌트에서 변화가 생겼다는 사실을 알고 있다. CD는 변화감지기의 준말.</p>
-</blockquote>
-<p>앞서 말한 트리거로 인해 컴포넌트 변화가 일어난다. 그러면 변화가 일어났다는 사실을 컴포넌트 트리를 형성하고 있는 모든 컴포넌트가 알게 된다. 이 때 가장 먼저 소식을 접하는 컴포넌트는 최상위 루트 컴포넌트다. 루트 컴포넌트가 변화를 인식하면, 루트 컴포넌트는 자기 아래에 있는 모든 컴포넌트에게 소식을 전파한다. </p>
-<h3 id="다른-컴포넌트의-소식을-다-알고-싶은-게-아니라면-감지기를-끈다"><a href="#다른-컴포넌트의-소식을-다-알고-싶은-게-아니라면-감지기를-끈다" class="headerlink" title="다른 컴포넌트의 소식을 다 알고 싶은 게 아니라면? 감지기를 끈다"></a>다른 컴포넌트의 소식을 다 알고 싶은 게 아니라면? 감지기를 끈다</h3><p><img src="https://pbs.twimg.com/media/Cb4lfBtWIAAuRET.png" alt="Onpush가 적용된 컴포넌트 트리"></p>
-<blockquote>
-<p>회색이 칠해진 컴포넌트는 (자기 내부의 변화를 빼곤) 다른 컴포넌트의 변화 소식을 받지 않는다.</p>
-</blockquote>
-<p>이처럼 기본적으로 컴포넌트 전체가 변화를 감지한다. 하지만 외부 컴포넌트의 변화 하나하나를 감지하길 원치 않는 컴포넌트는 <code>변화 감지기</code>란 것을 꺼서 소식을 받지 않는다. 변화감지기는 런타임에 생성되는데 이걸로 템플릿에 바인딩 된 프로퍼티가 달라졌는지 감지한다. 변화 감지기를 끄고 싶으면 <code>NgZone의 메소드 OnPush()</code>를 사용하면 된다. 이 메소드를 사용하면 외부의 변화를 감지하지 못하고, 자신의 컴포넌트 내부에 있는 프로퍼티는 값이 바뀌지 않는 <code>immutable</code>이라고 선언하는 것과 같다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, Oninit, ChangeDetectionStrategy &#125; from &apos;@angular/core&apos;;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  ...</span><br><span class="line">  changeDetection : ChangeDetectionStrategy.OnPush</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export class SomeComponent &#123; &#125;</span><br></pre></td></tr></table></figure>
+<p>2) 접근자 프로퍼티</p>
 <ul>
-<li><h4 id="변화감지기의-구체적인-모습은"><a href="#변화감지기의-구체적인-모습은" class="headerlink" title="변화감지기의 구체적인 모습은?"></a>변화감지기의 구체적인 모습은?</h4><p>런타임에 컴포넌트의 타입스크립트와 html를 합친 componentName.ngFactory.js 클래스가 만들어진다. 이 클래스의 메소드인  <code>detectChangeInternal</code>를 활용해 각 컴포넌트는 변화 감지를 수행한다고 하는데..<code>ChangeDetectorRef</code> 디펜던시를 컨스트럭터에 주입하면 각 컴포넌트의 변화감지기를 참조할 수 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(생략)</span><br><span class="line">constructor (private cd : ChangeDetectorRef) &#123;...&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>게터와 세터가 여기에 해당한다. </li>
 </ul>
-<p>변화 감지기를 선택적으로 껐다 켤 수도 있다. Input엘리먼트를 가지고 있는 컴포넌트는 외부 변화 감지를 하진 않아도 Input에서 나오는 value값을 다른 컴포넌트에 전달할 필요가 있다. Input value를 받는 컴포넌트의 경우도 마찬가지. 이런 경우에는 input value값이 달라지는 경우에만 변화감지기를 잠깐 열어둘 수도 있다. HTTP API로 옵저버블 타입의 Input value를 많이 주고 받는데 이 방법을 활용해 볼 필요가 있다고 생각했다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Component()</span><br><span class="line">class CartBadgeCmp &#123;</span><br><span class="line"> @Input() addItemStream : Observable&lt;any&gt;</span><br><span class="line"> counter = 0;</span><br><span class="line"></span><br><span class="line"> constructor(privated cd: ChangeDetectorRef)&#123;&#125;</span><br><span class="line"></span><br><span class="line"> ngOnInit() &#123;</span><br><span class="line">   this.addItemStream.subscribe(&#123;</span><br><span class="line">     this.counter++; // 상태 변화가 발생</span><br><span class="line">     this.cd.markForCheck(); // 변화가 발생한 경우에만 자신의 위치에서 루트 컴포넌트까지 감지기를 켜둔다.</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>이처럼 변화감지를 조절할 수 있는 방법은 다양하다. 적절한 변화감지 통제가 일어나면 매 프레임마다 처리할 코드가 많은 브라우저의 입장에선 렌더링 시간이 줄어들기 때문에 보다 부드러운 웹 화면을 만들 수 있다.(추후 브라우저 렌더링 포스팅)</p>
-<h3 id="NgZone-언제-끝날-지-모르는-비동기를-추적한다"><a href="#NgZone-언제-끝날-지-모르는-비동기를-추적한다" class="headerlink" title="NgZone : 언제 끝날 지 모르는 비동기를 추적한다"></a>NgZone : 언제 끝날 지 모르는 비동기를 추적한다</h3><p>동기 함수와 다르게 비동기 함수는 기본적으로 언제 작업이 끝날 지 알기 어렵다. 변화가 일어난 순간을 정확히 감지하고 거기에 대응해야 하는 앵귤러의 입장에선 이를 다루기가 쉽지 않다. 그래서 비동기 함수의 시작과 끝을 정확히 파악해주는 것이 zone.js다. zone.js가 있어서 비동기 함수를 코딩할 때마다, 앵귤러에게 일일이 함수의 변화 순간을 알려 주지 않아도 된다. 직접 변화 감지를 통제 하고 싶다면, NgZone이라는 모듈을 활용해서 관련 메소드를 쓰면 된다. </p>
-<p>참고)</p>
-<ol>
-<li><p><a href="https://pascalprecht.github.io/slides/angular-2-change-detection-explained/#/16" target="_blank" rel="noopener">https://pascalprecht.github.io/slides/angular-2-change-detection-explained/#/16</a></p>
-<blockquote>
-<p>pascal precht의 발표 슬라이드.</p>
-</blockquote>
+<p>3) 데이터 프로퍼티와 접근자 프로퍼티가 모두 가지는 것</p>
+<ul>
+<li>enumerable/configurable 어트리뷰트가 있다.</li>
+<li>enumerable은 for 루프나 Object.keys()로 접근 시 프로퍼티의 노출가능성을 알려주는 어트리뷰트다. </li>
+</ul>
+<h3 id="Enumerable"><a href="#Enumerable" class="headerlink" title="Enumerable"></a>Enumerable</h3><p>기본적으로 프로퍼티의 enumerable flag는 true로 설정되어 있다고 한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">    purposeOfLife: 42</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- purposeOfLife 프로퍼티와 관련된 어트리뷰트를 보여준다. --&gt;</span><br><span class="line">console.log(Object.getOwnPropertyDescriptor(obj, &apos;purposeOfLife&apos;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    value = 42,</span><br><span class="line">    writable = true,</span><br><span class="line">    enumerable = true, </span><br><span class="line">    configurable = true</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- 어트리뷰트 중 enumerable만 확인하고 싶다면 --&gt;</span><br><span class="line">console.log(obj.propertyIsEnumerable(&apos;purposeOfLife&apos;)); // true</span><br></pre></td></tr></table></figure></p>
+<h3 id="최초에-Enumerable-값이-false로-되어-있는-경우"><a href="#최초에-Enumerable-값이-false로-되어-있는-경우" class="headerlink" title="최초에 Enumerable 값이 false로 되어 있는 경우 :"></a>최초에 Enumerable 값이 false로 되어 있는 경우 :</h3><ol>
+<li><p>내장된 객체의 프로퍼티는 Non-Eunmerable이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">객체 prototype의 프로퍼티 toString메소드 체크</span><br><span class="line"></span><br><span class="line">console.log(&#123;&#125;.propertyIsEnumerable(&apos;toString&apos;)); // false</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><a href="https://youtu.be/X0DLP_rktsc" target="_blank" rel="noopener">https://youtu.be/X0DLP_rktsc</a></p>
-<blockquote>
-<p>1번 ppt를 가지고 발표하는 pascal precht.</p>
-</blockquote>
+<li><p><code>Object.defineProperty()</code>메소드로 오브젝트 프로퍼티를 정의내리면, enumerable 기본값이 <em>false</em>가 되어있다.</p>
 </li>
 </ol>
-<ol>
-<li><a href="https://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html" target="_blank" rel="noopener">https://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html</a><blockquote>
-<p>또 pascal precht의(…) 사이트.</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">예제)</span><br><span class="line">age란 프로퍼티를 가진 man 객체에 fullname 프로퍼티를 추가시기키</span><br><span class="line"></span><br><span class="line">let man = &#123;age : 18&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Object.defineProperty(man, &apos;fullname&apos;, &#123;</span><br><span class="line">    value : &quot;John Resig&quot;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(man.fullname); // John Resig</span><br><span class="line">console.log(Object.keys(man)); // [ &apos;age&apos; ]</span><br><span class="line"></span><br><span class="line">-&gt; non-enumerable인 프로퍼티 fullname은 나오지 않음. </span><br><span class="line">-&gt; 단, enumerable : true를 명시적으로 입력하면 기본값이 사라진다.</span><br></pre></td></tr></table></figure>
+<!--  프로퍼티 키와 프로퍼티 descriptor가 나뉘어져 있음 -->
+<h3 id="Object-defineProperty-로-어트리뷰트-바꾸기"><a href="#Object-defineProperty-로-어트리뷰트-바꾸기" class="headerlink" title="Object.defineProperty()로 어트리뷰트 바꾸기"></a>Object.defineProperty()로 어트리뷰트 바꾸기</h3><ul>
+<li>메소드의 세 번째 인자로 서술자 객체라는 것이 들어가는데, 이 객체 안에 프로퍼티 어트리뷰트가 담겨 있다.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">let man = &#123;age : 18, fullname: &apos;unknown&apos;&#125;;</span><br><span class="line"></span><br><span class="line">// &lt;!-- 인자 1 : 프로퍼티가 있는 객체, 인자2 : 타겟 프로퍼티 인자3 : 서술자 객체 --&gt;</span><br><span class="line">man = Object.defineProperty(man, &apos;fullname&apos;, &#123;</span><br><span class="line">    value : &quot;BrendanEich&quot;,</span><br><span class="line">    configurable : false</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&lt;!-- value 변경 확인 --&gt;</span><br><span class="line">console.log(man); // &#123; age: 18, fullname: &apos;BrendanEich&apos; &#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- configurable 적용 확인 --&gt;</span><br><span class="line">console.log(delete man.fullname); // false</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<p><em>변화 감지와 관련된 앵귤러 객체/메소드는 다음 포스팅에 올릴 예정</em></p>
+</ul>
+<h3 id="Object-getOwnPropertyDescriptor-로-프로퍼티-어트리뷰트-조회하기"><a href="#Object-getOwnPropertyDescriptor-로-프로퍼티-어트리뷰트-조회하기" class="headerlink" title="Object.getOwnPropertyDescriptor()로  프로퍼티 어트리뷰트 조회하기"></a><code>Object.getOwnPropertyDescriptor()</code>로  프로퍼티 어트리뷰트 조회하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let man_descriptor = Object.getOwnPropertyDescriptor(man, &apos;fullname&apos;);</span><br><span class="line"></span><br><span class="line">console.log(man_descriptor.value); // Brendan Eich</span><br><span class="line">console.log(man_descriptor.configurable); // false;</span><br></pre></td></tr></table></figure>
+<h3 id="Enumerable-true에-영향을-받는-메소드"><a href="#Enumerable-true에-영향을-받는-메소드" class="headerlink" title="Enumerable : true에 영향을 받는 메소드"></a>Enumerable : true에 영향을 받는 메소드</h3><p>프로퍼티가 Enumerable flag의 값을 false로 가지고 있다면, <code>JSON.stringify</code>메소드로 검색되지 않는다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">    name: &apos;scoth.io&apos;,</span><br><span class="line">    name_nonenum: &apos;scoth.co.kr&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Object.defineProperty(obj, &apos;name_nonenum&apos;, &#123; </span><br><span class="line">    enumerable: false</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(obj.propertyIsEnumerable(&apos;name_nonenum&apos;)); // false</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let jsonObj = JSON.parse(JSON.stringify(obj));</span><br><span class="line"></span><br><span class="line">console.log(jsonObj); // &#123; name: &apos;scoth.io&apos; &#125;</span><br></pre></td></tr></table></figure>
+<p><code>Enumerable: false</code>면 객체 프로퍼티를 모아서 보여주는 Object.keys()에서 검색되지 않는다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">let man = &#123;age : 18, fullname: &apos;unknown&apos;&#125;;</span><br><span class="line"></span><br><span class="line">man = Object.defineProperty(man, &apos;fullname&apos;, &#123;</span><br><span class="line">    value : &quot;Brendan Eich&quot;,</span><br><span class="line">    enumerable : false,</span><br><span class="line">    configurable : false</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(Object.keys(man)); // [ &apos;age&apos; ]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>non-eumerable인 프로퍼티까지 보려면 Object.getOwnPropertyNames(obj)를 사용한다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.getOwnPropertyNames(man)); // [ &apos;age&apos;, &apos;fullname&apos; ]</span><br></pre></td></tr></table></figure>
+<h3 id="for-in-문에서-검색되지-않는다"><a href="#for-in-문에서-검색되지-않는다" class="headerlink" title="for in 문에서 검색되지 않는다."></a>for in 문에서 검색되지 않는다.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for ( let v in man ) &#123;</span><br><span class="line">    console.log(v); // age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="언제-Enumerable-어트리뷰트를-고려하나-private한-프로퍼티를-원할-때"><a href="#언제-Enumerable-어트리뷰트를-고려하나-private한-프로퍼티를-원할-때" class="headerlink" title="언제 Enumerable 어트리뷰트를 고려하나? private한 프로퍼티를 원할 때?"></a>언제 Enumerable 어트리뷰트를 고려하나? private한 프로퍼티를 원할 때?</h3><p>위 예시에서 보듯 JSON.stringfy()나 for루프, 프로퍼티 접근 메소드에서 non-enumerable은 노출되지 않기 때문에, private한 프로퍼티를 만들고 싶을 때 enumerable 어트리뷰트를 사용하면 될 것이란 생각이 들었다. <a href="http://2ality.com/2015/10/enumerability-es6.html#marking-properties-as-private" target="_blank" rel="noopener">하지만 Dr. Axel Rauschmayer는 완전한 private 프로퍼티가 안 된다고 말하고 있다.</a></p>
+<ul>
+<li><p>읽기 전용이 되지만 getter로 enumerable한 프로퍼티에 접근할 수 있고, 여전히 프로퍼티 접근이 가능한 메소드가 있어서</p>
+</li>
+<li><p>복사를 할 때 non-enumerable프로퍼티는 복사가 안 되서 등</p>
+</li>
+</ul>
+<p>그래서 완전한 캡슐화를 원환다면 클로저나 <code>WeakMap</code>,’Symbol’과 같은 개념을 사용한다. </p>
+<p><a href="https://johnresig.com/blog/ecmascript-5-objects-and-properties/" target="_blank" rel="noopener">https://johnresig.com/blog/ecmascript-5-objects-and-properties/</a></p>
+<p>ES5 새 기능 중 Object와 관련된 새 기능을 소개해준다. 프로퍼티와 서술자(Descriptors) 설명도 있음.</p>
+<p> <a href="http://2ality.com/2015/10/enumerability-es6.html" target="_blank" rel="noopener">http://2ality.com/2015/10/enumerability-es6.html</a></p>
+<p>enumerable에 전반적인 내용이 담겨있다.</p>
+<p><a href="http://boycoding.tistory.com/38" target="_blank" rel="noopener">http://boycoding.tistory.com/38</a> [소년코딩]</p>
+<p>서술사 객체 설명과 예시를 본 사이트.</p>
 
         </div>
         <footer class="article-footer">
@@ -231,7 +233,7 @@
 
 
 
-    <a data-url="https://wonn223.github.io/2018/01/15/changedetection/" data-id="cjcq0lwwa0003yzp1474jzsw9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://wonn223.github.io/2018/01/22/enumerable/" data-id="cjcq0lwwg0009yzp1xef17f23" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -336,20 +338,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2018/01/17/changedetection2/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            앵귤러 이해하기(2) - NgZone 적용해보기
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2018/01/14/zindex/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/01/21/copy/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락</p>
+        <p class="article-nav-title">자바스크립트 - 객체 복사하기</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -545,7 +537,7 @@
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://wonn223.github.io/2018/01/15/changedetection/';
+    var disqus_url = 'https://wonn223.github.io/2018/01/22/enumerable/';
     
     (function() {
     var dsq = document.createElement('script');
