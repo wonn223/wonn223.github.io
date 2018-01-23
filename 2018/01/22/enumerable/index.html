@@ -18,7 +18,7 @@
 <meta property="og:description" content="객체 안에 선언한 프로퍼티는 키와 값으로만 이루어진 개념이라 생각했었는데 어트리뷰트까지 가지고 있었고, 그 종류도 프로퍼티 성격에 따라 나뉜다는 걸 알았다.  configurable/writable/enumerable 등등 여러 어트리뷰트 중에서 Enumerable 어트리뷰트를 좀더 찾아봤다.  프로퍼티 별 어트리뷰트 : 데이터 프로퍼티와 접근자 프로퍼티">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://www.mindbodysouldeveloper.com/wp-content/uploads/2016/02/JavaScript.png">
-<meta property="og:updated_time" content="2018-01-22T09:37:41.000Z">
+<meta property="og:updated_time" content="2018-01-23T06:56:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="자바스크립트 이해하기 - 프로퍼티와 Enumerable">
 <meta name="twitter:description" content="객체 안에 선언한 프로퍼티는 키와 값으로만 이루어진 개념이라 생각했었는데 어트리뷰트까지 가지고 있었고, 그 종류도 프로퍼티 성격에 따라 나뉜다는 걸 알았다.  configurable/writable/enumerable 등등 여러 어트리뷰트 중에서 Enumerable 어트리뷰트를 좀더 찾아봤다.  프로퍼티 별 어트리뷰트 : 데이터 프로퍼티와 접근자 프로퍼티">
@@ -219,8 +219,12 @@
 <li><p>복사를 할 때 non-enumerable프로퍼티는 복사가 안 되서 등</p>
 </li>
 </ul>
-<p>그래서 완전한 캡슐화를 원환다면 클로저나 <code>WeakMap</code>,’Symbol’과 같은 개념을 사용한다. </p>
-<p><a href="https://johnresig.com/blog/ecmascript-5-objects-and-properties/" target="_blank" rel="noopener">https://johnresig.com/blog/ecmascript-5-objects-and-properties/</a></p>
+<p>그래서 보다 더 안전한 은닉화를 원한다면 클로저나 <code>WeakMap</code>,’Symbol’과 같은 개념을 사용한다. </p>
+<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const privates = new WeakMap();</span><br><span class="line"></span><br><span class="line">class Product &#123;</span><br><span class="line">    constructor(name) &#123;</span><br><span class="line">        console.log(this); // Product &#123;&#125;</span><br><span class="line">        this.name = name;</span><br><span class="line">        privates.set(this, &#123;</span><br><span class="line">            id: 234087</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    related() &#123;</span><br><span class="line">        return console.log(privates.get(this));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const tea = new Product(&apos;coffee&apos;);</span><br><span class="line"></span><br><span class="line">tea.related(); // &#123; id: 234087 &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const ID = Symbol(&apos;id&apos;);</span><br><span class="line"></span><br><span class="line">class Product &#123;</span><br><span class="line">     constructor (name) &#123;</span><br><span class="line">         this.name = name;</span><br><span class="line">         this[&apos;id&apos;] = 234087;</span><br><span class="line">     </span><br><span class="line">     related () &#123;</span><br><span class="line">         return console.log(this[&apos;id&apos;]);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> const tea = new Product(&apos;coffee&apos;)</span><br><span class="line"> tea.related(); // 234087</span><br></pre></td></tr></table></figure>
+<p>Symbol은 <code>Object.getOwnPropertyNames()</code>에 드러나지 않지만 Reflect.ownKey()s나 Object.getOwnPropertySymbols()에서는 노출이 된다.<br>프로퍼티 노출은 되지만 접근은 불가능.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">namespace Validation &#123;</span><br><span class="line">    export interface StringValidator &#123;</span><br><span class="line">       isAcceptable(s: string): boolean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const lettersRegexp = /^[A-Za-z]+$/;</span><br><span class="line">const numberRegexp = /^[0-9]+$/;</span><br><span class="line"></span><br><span class="line">export class LettersOnlyValidator implements StringValidator &#123;</span><br><span class="line">    isAcceptable(s: string) &#123;</span><br><span class="line">        return letterRegexp.test(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">export class ZipCodeValidator implements StringValidator &#123;</span><br><span class="line">    isAcceptable(s: string) &#123;</span><br><span class="line">        return s.length === 5 &amp;&amp; numberRegexp.test(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;];</span><br><span class="line"></span><br><span class="line">let validator &#123; [s:string]= Validation.StringValidator &#125; = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">validators[&quot;Zip code&quot;] = new Validation.ZipCodeValidator();</span><br><span class="line">validators[&quot;Letters only&quot;] = new Validation.LettersOnlyValidator();</span><br><span class="line"></span><br><span class="line">for (let s of strings) &#123;</span><br><span class="line">    for (let name in validators) &#123;</span><br><span class="line">        console.log();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="출처"><a href="#출처" class="headerlink" title="출처"></a>출처</h3><p><a href="https://johnresig.com/blog/ecmascript-5-objects-and-properties/" target="_blank" rel="noopener">https://johnresig.com/blog/ecmascript-5-objects-and-properties/</a></p>
 <p>ES5 새 기능 중 Object와 관련된 새 기능을 소개해준다. 프로퍼티와 서술자(Descriptors) 설명도 있음.</p>
 <p> <a href="http://2ality.com/2015/10/enumerability-es6.html" target="_blank" rel="noopener">http://2ality.com/2015/10/enumerability-es6.html</a></p>
 <p>enumerable에 전반적인 내용이 담겨있다.</p>
@@ -233,7 +237,7 @@
 
 
 
-    <a data-url="https://wonn223.github.io/2018/01/22/enumerable/" data-id="cjcq0lwwg0009yzp1xef17f23" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://wonn223.github.io/2018/01/22/enumerable/" data-id="cjcripi9f000cj1p1a6ayfydp" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -338,6 +342,16 @@
         
 <nav id="article-nav">
     
+        <a href="/2018/01/23/immutable/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            immutable한 객체 만들기 - Immutable.js의 Map
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
     
         <a href="/2018/01/21/copy/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
@@ -356,6 +370,26 @@
         <h3 class="widget-title">recents</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/01/23/immutable/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://www.mindbodysouldeveloper.com/wp-content/uploads/2016/02/JavaScript.png)" alt="immutable한 객체 만들기 - Immutable.js의 Map" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/23/immutable/" class="title">immutable한 객체 만들기 - Immutable.js의 Map</a></p>
+                            <p class="item-date"><time datetime="2018-01-23T10:48:25.000Z" itemprop="datePublished">2018-01-23</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -437,26 +471,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2018/01/15/changedetection/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://blog.lacolaco.net/img/angular-2-change-detection-explained/cd-tree-7.png)" alt="앵귤러 이해하기 (1) 변화 감지 - 코딩하는(?) 타이밍 잡기" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2018/01/15/changedetection/" class="title">앵귤러 이해하기 (1) 변화 감지 - 코딩하는(?) 타이밍 잡기</a></p>
-                            <p class="item-date"><time datetime="2018-01-14T16:20:49.000Z" itemprop="datePublished">2018-01-15</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -469,7 +483,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">7</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">8</span></li></ul>
         </div>
     </div>
 
@@ -479,7 +493,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/change-detection-앵귤러2-변화-감지-ngzone/">change detection, 앵귤러2, 변화 감지, ngzone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5-enumerable-자바스크립트-프로퍼티/">es5, enumerable, 자바스크립트, 프로퍼티</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index-css-쌓임맥락-stacking-context-position/">z-index, css, 쌓임맥락, stacking context, position</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/깊은-복사-얇은-복사-deep-copy-참조-참조-복사/">깊은 복사, 얇은 복사, deep copy, 참조, 참조 복사</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/비동기-웹-워커-AJAX-IndexedDB-스레드-HTML5/">비동기, 웹 워커, AJAX, IndexedDB, 스레드, HTML5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/앵귤러2-change-detection/">앵귤러2+, change detection</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/change-detection-앵귤러2-변화-감지-ngzone/">change detection, 앵귤러2, 변화 감지, ngzone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5-enumerable-자바스크립트-프로퍼티/">es5, enumerable, 자바스크립트, 프로퍼티</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutable-immutable-js-Object-freeze/">immutable, immutable.js, Object.freeze</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index-css-쌓임맥락-stacking-context-position/">z-index, css, 쌓임맥락, stacking context, position</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/깊은-복사-얇은-복사-deep-copy-참조-참조-복사/">깊은 복사, 얇은 복사, deep copy, 참조, 참조 복사</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/비동기-웹-워커-AJAX-IndexedDB-스레드-HTML5/">비동기, 웹 워커, AJAX, IndexedDB, 스레드, HTML5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/앵귤러2-change-detection/">앵귤러2+, change detection</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -489,7 +503,7 @@
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/change-detection-앵귤러2-변화-감지-ngzone/" style="font-size: 10px;">change detection, 앵귤러2, 변화 감지, ngzone</a> <a href="/tags/es5-enumerable-자바스크립트-프로퍼티/" style="font-size: 10px;">es5, enumerable, 자바스크립트, 프로퍼티</a> <a href="/tags/z-index-css-쌓임맥락-stacking-context-position/" style="font-size: 10px;">z-index, css, 쌓임맥락, stacking context, position</a> <a href="/tags/깊은-복사-얇은-복사-deep-copy-참조-참조-복사/" style="font-size: 10px;">깊은 복사, 얇은 복사, deep copy, 참조, 참조 복사</a> <a href="/tags/비동기-웹-워커-AJAX-IndexedDB-스레드-HTML5/" style="font-size: 10px;">비동기, 웹 워커, AJAX, IndexedDB, 스레드, HTML5</a> <a href="/tags/앵귤러2-change-detection/" style="font-size: 10px;">앵귤러2+, change detection</a>
+            <a href="/tags/change-detection-앵귤러2-변화-감지-ngzone/" style="font-size: 10px;">change detection, 앵귤러2, 변화 감지, ngzone</a> <a href="/tags/es5-enumerable-자바스크립트-프로퍼티/" style="font-size: 10px;">es5, enumerable, 자바스크립트, 프로퍼티</a> <a href="/tags/immutable-immutable-js-Object-freeze/" style="font-size: 10px;">immutable, immutable.js, Object.freeze</a> <a href="/tags/z-index-css-쌓임맥락-stacking-context-position/" style="font-size: 10px;">z-index, css, 쌓임맥락, stacking context, position</a> <a href="/tags/깊은-복사-얇은-복사-deep-copy-참조-참조-복사/" style="font-size: 10px;">깊은 복사, 얇은 복사, deep copy, 참조, 참조 복사</a> <a href="/tags/비동기-웹-워커-AJAX-IndexedDB-스레드-HTML5/" style="font-size: 10px;">비동기, 웹 워커, AJAX, IndexedDB, 스레드, HTML5</a> <a href="/tags/앵귤러2-change-detection/" style="font-size: 10px;">앵귤러2+, change detection</a>
         </div>
     </div>
 
