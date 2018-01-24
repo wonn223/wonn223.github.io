@@ -3,26 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락 | seokwon</title>
+    <title>자바스크립트 - ES6프록시, proxy pattern | seokwon</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="z-index, css, 쌓임맥락, stacking context, position" />
+        <meta name="keywords" content="프록시 패턴, es6, 프록시, proxy" />
     
-    <meta name="description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이">
-<meta name="keywords" content="z-index, css, 쌓임맥락, stacking context, position">
+    <meta name="description" content="es6에서 proxy라는 새로운 객체를 내놨는데, ECMAScript에서 프록시 패턴을 내장해준 것이라고 한다. 프록시 패턴이 무엇인지, 그리고 es6에서 프록시를 어떻게 사용하는지 찾아보고 정리해봤다.  프록시 패턴언제 쓰는지?   외부에서 객체 접근을 통제하고 싶을 때(특정 객체의 일을 대신 해준다.) 사이즈가 큰 객체를 레이지 로딩하고 싶을 때  일">
+<meta name="keywords" content="프록시 패턴, es6, 프록시, proxy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서&#x2F; 쌓임 맥락">
-<meta property="og:url" content="https://wonn223.github.io/2018/01/14/zindex/index.html">
+<meta property="og:title" content="자바스크립트 - ES6프록시, proxy pattern">
+<meta property="og:url" content="https://wonn223.github.io/2018/01/24/pattern/index.html">
 <meta property="og:site_name" content="seokwon">
-<meta property="og:description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이">
+<meta property="og:description" content="es6에서 proxy라는 새로운 객체를 내놨는데, ECMAScript에서 프록시 패턴을 내장해준 것이라고 한다. 프록시 패턴이 무엇인지, 그리고 es6에서 프록시를 어떻게 사용하는지 찾아보고 정리해봤다.  프록시 패턴언제 쓰는지?   외부에서 객체 접근을 통제하고 싶을 때(특정 객체의 일을 대신 해준다.) 사이즈가 큰 객체를 레이지 로딩하고 싶을 때  일">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://i.stack.imgur.com/4yHZs.png">
-<meta property="og:updated_time" content="2018-01-22T09:37:33.000Z">
+<meta property="og:updated_time" content="2018-01-24T08:49:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS 이해하기 (1) position, z-index가 만든 쌓임 순서&#x2F; 쌓임 맥락">
-<meta name="twitter:description" content="css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이">
-<meta name="twitter:image" content="https://i.stack.imgur.com/4yHZs.png">
+<meta name="twitter:title" content="자바스크립트 - ES6프록시, proxy pattern">
+<meta name="twitter:description" content="es6에서 proxy라는 새로운 객체를 내놨는데, ECMAScript에서 프록시 패턴을 내장해준 것이라고 한다. 프록시 패턴이 무엇인지, 그리고 es6에서 프록시를 어떻게 사용하는지 찾아보고 정리해봤다.  프록시 패턴언제 쓰는지?   외부에서 객체 접근을 통제하고 싶을 때(특정 객체의 일을 대신 해준다.) 사이즈가 큰 객체를 레이지 로딩하고 싶을 때  일">
     
 
     
@@ -139,14 +137,14 @@
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-zindex" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-pattern" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        CSS 이해하기 (1) position, z-index가 만든 쌓임 순서/ 쌓임 맥락
+        자바스크립트 - ES6프록시, proxy pattern
         </h1>
     
 
@@ -156,15 +154,15 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2018/01/14/zindex/" class="article-date">
-            <time datetime="2018-01-14T09:38:02.000Z" itemprop="datePublished">2018-01-14</time>
+        <a href="/2018/01/24/pattern/" class="article-date">
+            <time datetime="2018-01-24T08:49:09.000Z" itemprop="datePublished">2018-01-24</time>
         </a>
     </div>
 
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/z-index-css-쌓임맥락-stacking-context-position/">z-index, css, 쌓임맥락, stacking context, position</a>
+        <a class="tag-link" href="/tags/프록시-패턴-es6-프록시-proxy/">프록시 패턴, es6, 프록시, proxy</a>
     </div>
 
             </div>
@@ -172,62 +170,55 @@
         
         <div class="article-entry" itemprop="articleBody">
             <blockquote>
-<p>css 작업을 하다 보면 특정 요소를 다른 요소보다 앞에 두고 싶을 때가 있다. 그럴 땐 먼저 position : relative | absolute로 요소를 움직여본다. 작동이 안 되는 것 같으면 z-index를 활용했는데, 문제는 z-index마저 먹히지 않는 상황이 있다는 것(…). 그 이유를 찾아 보다가 쌓임 맥락(stacking context)이란 것을 알게 되었다.</p>
+<p>es6에서 proxy라는 새로운 객체를 내놨는데, ECMAScript에서 프록시 패턴을 내장해준 것이라고 한다. 프록시 패턴이 무엇인지, 그리고 es6에서 프록시를 어떻게 사용하는지 찾아보고 정리해봤다.</p>
 </blockquote>
-<h3 id="쌓임맥락"><a href="#쌓임맥락" class="headerlink" title="쌓임맥락"></a>쌓임맥락</h3><p>HTML문서가 DOM에서 렌더링 트리로 변할 때까지 트리의 렌더 오브젝트(DOM에선 노드)는 문서에 적힌 위계를 그대로 가지고 여러 개의 층(stack)을 이룬다. 스택에서 볼 수 있는 층 간의 위계를 쌓임 순서/위계(stacking order)라고 하며 각 층에서 오브젝트들이 저마다 형성한 위계를 쌓임 맥락(stacking context)이라 한다.</p>
-<p>층이 쌓이는 순서는 기본적으로 HTML문서에 선언된 위치에 따라 결정되지만, 레이어에 변화를 일으키는 css프로퍼티(position, z-index)에 따라 그 순서가 달라진다. 이는 브라우저의 렌더링 작업에도 영향을 미친다. (브라우저 렌더링 작업에 관한 글은 따로 정리.)</p>
-<blockquote>
-<p><a href="https://philipwalton.com/articles/what-no-one-told-you-about-z-index/" target="_blank" rel="noopener">philpwalton의 글 중..</a></p>
-<p>어떤 엘리먼트의 쌓임 맥락(stacking context)이 쌓임 순서(stacking order) 상 가장 낮은 곳에 있는 경우엔 z-index의 값이 1억이라도, 쌓임 순서가 높은 엘리먼트보다 화면 앞에 위치할 수 없다.</p>
-</blockquote>
-<h3 id="쌓임-맥락을-만드는-요소들"><a href="#쌓임-맥락을-만드는-요소들" class="headerlink" title="쌓임 맥락을 만드는 요소들"></a>쌓임 맥락을 만드는 요소들</h3><ul>
-<li>문서의 뿌리 요소 엘리먼트 html // 예제</li>
-<li>position 속성이 있고, z-index를 auto가 아닌 정수값으로 지정한 엘리먼트 // 예제</li>
-<li>opacity를 1보다 낮게 설정한 엘리먼트</li>
-<li>z-index를 정수값 지정했고 flex속성을 가진 엘리먼트 </li>
-<li>z-index를 정수값 || auto이고, position:fixed를 가진 엘리먼트 </li>
+<h3 id="프록시-패턴"><a href="#프록시-패턴" class="headerlink" title="프록시 패턴"></a>프록시 패턴</h3><p>언제 쓰는지? </p>
+<ul>
+<li>외부에서 객체 접근을 통제하고 싶을 때(특정 객체의 일을 대신 해준다.)</li>
+<li>사이즈가 큰 객체를 레이지 로딩하고 싶을 때</li>
 </ul>
-<h3 id="예제"><a href="#예제" class="headerlink" title="예제"></a>예제</h3><p><em>우선 z-index는 요소에 position 프로퍼티가 있을 때만 유효하다.</em> position 속성이 없으면 z-index를 높여도 기존의 화면이 달라지지 않는다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#box_1 &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: relative;</span><br><span class="line">    z-index: 99;</span><br><span class="line">    background: goldenrod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box_2 &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: relative;</span><br><span class="line">    z-index: 500;</span><br><span class="line">    margin-top: -72px;</span><br><span class="line">    background: darkgreen;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box_3 &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: relative;</span><br><span class="line">    z-index: 1;</span><br><span class="line">    background: darkcyan;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="position_zindex_both_true.png" alt="포지션 값이 있을 때 z-index"><br><img src="poistion_false.png" alt="포지션 값이 없을 때 z-index"></p>
-<p>왼쪽이 세 개의 id에 position과 z-index 모두 적용했을 때 모습이다. 초록색 박스(div_2)가 금색 박스보다 z-index가 높고 <code>margin-top</code>속성을 가지고 있어서 금색 박스(div_1)를 덮었다. 오른쪽의 경우는 초록색 박스의 position 속성을 껐을 때다. z-index 속성이 무효화되고, 초록색 박스의 margin-top 값만큼 청록색 박스가 끌려 올라간 것을 알 수 있다.</p>
-<p>position 속성이 없어진 초록색 박스는 1,3번 박스와 다른 스택 맥락을 갖게 되었기 때문에 자신의 z-index는 자신이 위치한 새로운 쌓임 맥락에서만 유효하다.</p>
-<h3 id="같은-쌓임-맥락에-있는-요소들-끼리의-쌓임-순서가-결정되는-법"><a href="#같은-쌓임-맥락에-있는-요소들-끼리의-쌓임-순서가-결정되는-법" class="headerlink" title="같은 쌓임 맥락에 있는 요소들 끼리의 쌓임 순서가 결정되는 법"></a>같은 쌓임 맥락에 있는 요소들 끼리의 쌓임 순서가 결정되는 법</h3><p>Smashing magazine에서 알려 준 기본 stack 형성 순위는 다음과 같다.<br><br>5번으로 갈수록 화면 앞으로 나온다.</p>
-<p><img src="https://i.stack.imgur.com/4yHZs.png" alt="stack order"></p>
-<ol>
-<li>배경과 보더를 형성하는 엘리먼트</li>
-<li>음수 값을 가진 css 프로퍼티가 있는 엘리먼트( margin : - 10px )</li>
-<li>float이 아니며 display : block인 엘리먼트</li>
-<li>float인 엘리먼트</li>
-<li>인라인 속성 엘리먼트<br>(6. 포지션 | z-index 속성이 있는 엘리먼트)</li>
-</ol>
-<h3 id="부모의-쌓임-맥락과-자식의-쌓임-맥락은-또-다르다"><a href="#부모의-쌓임-맥락과-자식의-쌓임-맥락은-또-다르다" class="headerlink" title="부모의 쌓임 맥락과 자식의 쌓임 맥락은 또 다르다."></a>부모의 쌓임 맥락과 자식의 쌓임 맥락은 또 다르다.</h3><p>부모와 자식은 별개의 맥락을 형성하고, 자식은 부모의 쌓임 맥락을 따르게 된다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// html</span><br><span class="line">&lt;div id=&quot;box1&quot;&gt;</span><br><span class="line">  &lt;span class=&quot;red&quot;&gt;Red&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div id=&quot;box2&quot;&gt;</span><br><span class="line">  &lt;span class=&quot;green&quot;&gt;Green&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;span class=&quot;blue&quot;&gt;Blue&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">// css</span><br><span class="line"></span><br><span class="line">.red, .green, .blue &#123;</span><br><span class="line">  position: absolute;</span><br><span class="line">  width: 100px;</span><br><span class="line">  color: white;</span><br><span class="line">  line-height: 100px;</span><br><span class="line">  text-align: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.red &#123;</span><br><span class="line">  z-index: 999;</span><br><span class="line">  top: 20px;</span><br><span class="line">  left: 20px;</span><br><span class="line">  background: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.green &#123;</span><br><span class="line">  z-index : 1000; </span><br><span class="line">  // green이 red보다 z-index가 높다. </span><br><span class="line">  // span 요소가 형성한 쌓임 맥락에선 green이 화면 제일 앞쪽에 위치한다. 하지만..</span><br><span class="line">  top: 60px;</span><br><span class="line">  left: 60px;</span><br><span class="line">  background: green;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.blue &#123;</span><br><span class="line">  top: 100px;</span><br><span class="line">  left: 100px;</span><br><span class="line">  background: blue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box1 &#123;</span><br><span class="line">  position : relative;</span><br><span class="line">  z-index : 1000; </span><br><span class="line">  // red 부모 요소의 z-index가 green 부모 요소의 것보다 값이 크다.</span><br><span class="line">  // 그래서 red가 화면 제일 앞쪽에 위치한다.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#box2 &#123;</span><br><span class="line">  position: relative;</span><br><span class="line">  z-index : 999;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="parent_context.png" alt="부모와 자식 요소 간의 맥락"></p>
-<p><a href="https://codepen.io/philipwalton/pen/ksBaI" target="_blank" rel="noopener">Codepen으로 확인하기</a></p>
-<h3 id="display-float인-경우"><a href="#display-float인-경우" class="headerlink" title="display:float인 경우"></a>display:float인 경우</h3><p> 포지션이 지정된 엘리먼트와 그렇지 않은 엘리먼트 사이에 위치한다.</p>
-<h3 id="개념을-접하고-나서"><a href="#개념을-접하고-나서" class="headerlink" title="개념을 접하고 나서"></a>개념을 접하고 나서</h3><blockquote>
-<p>[philpwalton의 글 중..]</p>
-</blockquote>
-<p>…If you’re setting a z-index of a billion on an element and it’s not moving forward in the stacking order, take a look up its ancestor tree and see if any of its parents form stacking contexts</p>
-<p>만약 어떤 요소에 z-index를 줬는데 변화가 일어나지 않았다면 position 프로퍼티가 선언되었는지를 확인하거나, 부모 요소에 쌓임 맥락이 형성되어 있는지를 확인하면 원인을 파악할 수 있겠다는 생각이 들었다.</p>
-<p>1) <a href="https://coding.smashingmagazine.com/2009/09/the-z-index-css-property-a-comprehensive-look/" target="_blank" rel="noopener">https://coding.smashingmagazine.com/2009/09/the-z-index-css-property-a-comprehensive-look/</a></p>
-<pre><code>&gt; smashingmagazine에서 제공하는 쌓임맥락 설명. 코드 예제와 z-index 적용된 사이트를 소개하고 있다.
-</code></pre><p>2) <a href="https://mytory.net/archives/10997" target="_blank" rel="noopener">https://mytory.net/archives/10997</a></p>
-<pre><code>&gt; 쌓임 맥락에 관한 기본적인 내용을 번역해 준 사이트
-</code></pre><p>3) <a href="https://developer.mozilla.org/ko/docs/Web/CSS/Understanding_z-index/The_stacking_context" target="_blank" rel="noopener">https://developer.mozilla.org/ko/docs/Web/CSS/Understanding_z-index/The_stacking_context</a></p>
-<pre><code>&gt; MDN에서 제공하는 쌓임 맥락 이야기
-</code></pre><p> 4) <a href="https://gitlab.com/SeunghoLee/my-markup-project/issues/2" target="_blank" rel="noopener">https://gitlab.com/SeunghoLee/my-markup-project/issues/2</a></p>
-<pre><code>&gt; 정리를 깔끔하게 해주신 개발자님 깃북
-</code></pre>
+<p>일단 차 목록이 담긴 객체와 프로토타입을 만들어봤다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">const CarList = function() &#123;</span><br><span class="line">    this._carList = &#123;</span><br><span class="line">        1 : &apos;Acar&apos;, </span><br><span class="line">        2 : &apos;Bcar&apos;, </span><br><span class="line">        3 : &apos;Ccar&apos;, </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">CarList.prototype = &#123;</span><br><span class="line">    getCar: function (number) &#123;</span><br><span class="line">        console.log(this); // &#123; _carList : &#123; ... &#125;&#125;를 가리키고 있다.</span><br><span class="line">        return console.log(&apos;조회 결과&apos;, this._carList[number]);</span><br><span class="line">    &#125;,</span><br><span class="line">    search(number) &#123;</span><br><span class="line">        if(this._carList[number]) &#123;</span><br><span class="line">            return console.log(&apos;검색 결과&apos;, true);    </span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return console.log(&apos;검색결과&apos;, false);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    // 세터 함수</span><br><span class="line">    set addCar(newCar) &#123;</span><br><span class="line">        // 복사본 할당</span><br><span class="line">         const carList = Object.assign(this._carList, newCar);</span><br><span class="line">         console.log(carList);</span><br><span class="line">         return this.carList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 코드 확인</span><br><span class="line">let Owner1 = new CarList();</span><br><span class="line">let Owner2 = new CarList();</span><br><span class="line"></span><br><span class="line">console.log(Owner1.__proto__ === CarList.prototype); // true</span><br><span class="line"></span><br><span class="line">Owner1.getCar(3); //  Ccar</span><br><span class="line">Owner1.search(3); //  true</span><br><span class="line">Owner1.addCar = &#123; 4: &apos;Dcar&apos;&#125; ; // &#123; &apos;4&apos;: &apos;Dcar&apos; &#125; 추가</span><br><span class="line"></span><br><span class="line">console.log(Owner1);  // &#123; _carList: &#123; &apos;1&apos;: &apos;Acar&apos;, &apos;2&apos;: &apos;Bcar&apos;, &apos;3&apos;: &apos;Ccar&apos;, &apos;4&apos;: &apos;Dcar&apos; &#125; &#125;</span><br><span class="line"></span><br><span class="line">console.log(Owner2); // &#123; _carList: &#123; &apos;1&apos;: &apos;Acar&apos;, &apos;2&apos;: &apos;Bcar&apos;, &apos;3&apos;: &apos;Ccar&apos; &#125; &#125;</span><br><span class="line"></span><br><span class="line">console.log(new CarList()) // &#123; _carList: &#123; &apos;1&apos;: &apos;Acar&apos;, &apos;2&apos;: &apos;Bcar&apos;, &apos;3&apos;: &apos;Ccar&apos; &#125; &#125;, 원본 확인</span><br><span class="line">//</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">setter와 Object.assign()을 활용해서 _carList 변수에 직접적인 접근을 제한하려 했다. 세터/게터로만 접근하는 방법의 단점을 찾아보다가, 클래스 컨스트럭터 내부에서 프로퍼티를 선언하고 게터/세터로 그 프로퍼티에 접근하는 방식도 찾을 수 있었다. 하지만 두 방식 모두 게터/세터를 특정 변수마다 하나씩 선언해야 하는 단점이 있다. 이를 고쳐준 게 es6의 Proxy였다. (Proxy에 정해진 틀에 바꾸고 싶은 타겟 객체, 타겟 객체에 어떤 방식을 가미할 지등을 넣어주면 된다.)</span><br><span class="line"></span><br><span class="line">모든 프록시 프로토타입에 원본 객체의 메소드를 적용시켜놔서, 원본을 활용하지 않고 프록시 인스턴스 만으로 원하는 동작을 처리할 수 있었다. 예제를 따라 쳐보면서 프록시가 앵귤러 서비스와 비슷하단 느낌이 들었다.</span><br></pre></td></tr></table></figure>
+<p>const CarListProxy = function() {<br>    this.carList = new CarList();<br>};</p>
+<p>CarListProxy.prototype = {<br>        getCar(number) {<br>            return this.carList.getCar(number);<br>        },</p>
+<pre><code>search(number){
+    return  this.carList.search(number);
+},
+
+addCar(newCar){
+    return this.carList.addcar = newCar;
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 프록시를 이용한 레이지로딩</span><br><span class="line">만약 carList나 prototype이 가진 사이즈가 크다면, 실행에 부담이 갈 수 있다. 그래서 프록시를 활용하면 특정 기능이 실행됐을 떄(트리거), carList를 초기화할 수 있다고 한다.</span><br></pre></td></tr></table></figure></p>
+<p>// 초기화 늦추기(레이지 로딩)<br>const CarList = function() {<br>    this._carList = {<br>        1 : ‘Acar’,<br>        2 : ‘Bcar’,<br>        3 : ‘Ccar’,<br>    }<br>};</p>
+<p>CarList.prototype = {<br>    getCar: function (number) {<br>        return console.log(‘조회 결과’, this._carList[number]);<br>    },<br>    search(number) {<br>        if(this._carList[number]) {<br>            return console.log(‘검색 결과’, true);<br>        } else {<br>            return console.log(‘검색결과’, false);<br>        }<br>    },<br>    set addCar(newCar) {<br>         const carList = Object.assign(this._carList, newCar);<br>         return this.carList;<br>    }<br>}</p>
+<p>const CarListProxy = function() {<br>    this.carList = null; // 일단 CarList 생서자를 실행시키지 않는다.<br>};</p>
+<p>CarListProxy.prototype = {<br>        init() {<br>            this.carList = new CarList();<br>        },</p>
+<pre><code>// 아래 메소드가 작동할 때 init이 호출되고, 차 목록 초기화가 일어난다.
+getCar(number) {
+    this.init();
+    return this.carList.getCar(number);
+},
+
+search(number){
+    this.init();
+    return  this.carList.search(number);
+},
+
+addCar(newCar){
+    this.init();
+    return this.carList.addcar = newCar;
+}
+</code></pre><p>}</p>
+<p>let instance_proxy = new CarListProxy();</p>
+<p>console.log(instance_proxy.carList); // null<br>console.log(instance_proxy.getCar(3)); // 조회 결과 Ccar<br>console.log(instance_proxy.carList); // { _carList: { ‘1’: ‘Acar’, ‘2’: ‘Bcar’, ‘3’: ‘Ccar’ } }<br>```</p>
+
         </div>
         <footer class="article-footer">
             
 
 
 
-    <a data-url="https://wonn223.github.io/2018/01/14/zindex/" data-id="cjcstvx76000hr0p1m2h9rgep" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://wonn223.github.io/2018/01/24/pattern/" data-id="cjcstvx74000fr0p13s62c9u9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -332,20 +323,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2018/01/15/changedetection/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            앵귤러 이해하기 (1) 변화 감지 - 코딩하는(?) 타이밍 잡기
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2018/01/13/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/01/23/immutable/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">Hello World</p>
+        <p class="article-nav-title">immutable한 객체 만들기 - Immutable.js의 Map</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -541,7 +522,7 @@
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://wonn223.github.io/2018/01/14/zindex/';
+    var disqus_url = 'https://wonn223.github.io/2018/01/24/pattern/';
     
     (function() {
     var dsq = document.createElement('script');
