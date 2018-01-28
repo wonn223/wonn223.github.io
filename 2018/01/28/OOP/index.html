@@ -17,12 +17,12 @@
 <meta property="og:site_name" content="seokwon">
 <meta property="og:description" content="6기 분들이 소개해 준 객체지향 책을 접하고 나서 객체지향과 관련된 강의를 찾아봤다. 아래 강의는 JSON파일을 화면에 표현하는 작업을 예시로 es6와 객체지향을 결합한 코딩을 보여준다. 강의를 들으면서 정리해봤다.  코드 스피츠71 - 디자인 패턴 1회차 중 기본 코드아래는 json을 불러와서 &amp;lt;table&amp;gt;요소에 표현하는 기본 코드다. 123">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://wonn223.github.io/2018/01/28/OOP/OOP/supplyer_render.png">
-<meta property="og:updated_time" content="2018-01-28T07:20:11.000Z">
+<meta property="og:image" content="http://www.mindbodysouldeveloper.com/wp-content/uploads/2016/02/JavaScript.png">
+<meta property="og:updated_time" content="2018-01-28T10:44:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="코드스피츠 수업 정리 - OOP(0.5..?)">
 <meta name="twitter:description" content="6기 분들이 소개해 준 객체지향 책을 접하고 나서 객체지향과 관련된 강의를 찾아봤다. 아래 강의는 JSON파일을 화면에 표현하는 작업을 예시로 es6와 객체지향을 결합한 코딩을 보여준다. 강의를 들으면서 정리해봤다.  코드 스피츠71 - 디자인 패턴 1회차 중 기본 코드아래는 json을 불러와서 &amp;lt;table&amp;gt;요소에 표현하는 기본 코드다. 123">
-<meta name="twitter:image" content="https://wonn223.github.io/2018/01/28/OOP/OOP/supplyer_render.png">
+<meta name="twitter:image" content="http://www.mindbodysouldeveloper.com/wp-content/uploads/2016/02/JavaScript.png">
     
 
     
@@ -196,7 +196,7 @@
 <h3 id="객체지향에서-바라본-지금까지의-코드-문제점"><a href="#객체지향에서-바라본-지금까지의-코드-문제점" class="headerlink" title="객체지향에서 바라본 지금까지의 코드 문제점"></a>객체지향에서 바라본 지금까지의 코드 문제점</h3><p> 문제점 1<br> <code>load(url){}</code>에서 url을 사용한다는 것 자체가 객체지향이 아니다. 객체지향은 객체 간 협력 시 객체를 주고 받아야 하는데, url(즉, json) 값 객체를 주고 받고 있다. 값을 인자로 받고 절차를 구현한다는 건 객체지향에 어긋난다.</p>
 <p>문제점 2<br>Table 객체 안에 독립적인 역할과 책임을 가지는 <code>load()</code>, <code>render()</code>가 있다. 분리시킬 필요가 있다.</p>
 <h3 id="수정해보기-우선-협력관계를-정한다"><a href="#수정해보기-우선-협력관계를-정한다" class="headerlink" title="수정해보기 - 우선, 협력관계를 정한다."></a>수정해보기 - 우선, 협력관계를 정한다.</h3><p>객체지향에서 코드를 구현할 때 객체 간의 협력 관계를 잘 정해야 한다. 많은 사람들이 실수하는 것이 데이터 로더와 렌더러가 협력해야한다고 생각하는 것이다. 하지만 정확한 협력 관계는 데이터를 공급하는 데이터 공급자와 렌더러가 협력하는 것이다.</p>
-<p><img src="./OOP/supplyer_render.png" alt="잘못된 관계"></p>
+<p><img src="./supplyer_render.png" alt="잘못된 관계"></p>
 <h3 id="데이터-공급자-객체를-만든다"><a href="#데이터-공급자-객체를-만든다" class="headerlink" title="데이터 공급자 객체를 만든다"></a>데이터 공급자 객체를 만든다</h3><p>여러 데이터 중 json 데이터를 가지는 JSONData객체를 만든다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const data = new JSONData(&apos;77_1.json&apos;);</span><br><span class="line"></span><br><span class="line">const renderer = new Renderer();</span><br><span class="line">renderer.render(data);</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>표시할 데이터를 가진 JSONData 클래스를 렌더러 메소드의 인자로 넣었다. 이렇게 밀접한 협력이 일어나는 모델을 트랜잭션 모델이라고 한다.</li>
@@ -347,7 +347,7 @@
                             <a href="/2018/01/28/OOP/" class="thumbnail">
     
     
-        <span style="background-image:url(./OOP/supplyer_render.png)" alt="코드스피츠 수업 정리 - OOP(0.5..?)" class="thumbnail-image"></span>
+        <span style="background-image:url(http://www.mindbodysouldeveloper.com/wp-content/uploads/2016/02/JavaScript.png)" alt="코드스피츠 수업 정리 - OOP(0.5..?)" class="thumbnail-image"></span>
     
     
 </a>
