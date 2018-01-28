@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>코드스피츠 수업 정리 - OOP(0.5..?) | seokwon</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="코드 스피츠, OOP, 객체지향, ES6" />
+    
+    <meta name="description" content="6기 분들이 소개해 준 객체지향 책을 접하고 나서 객체지향과 관련된 강의를 찾아봤다. 아래 강의는 JSON파일을 화면에 표현하는 작업을 예시로 es6와 객체지향을 결합한 코딩을 보여준다. 강의를 들으면서 정리해봤다.  코드 스피츠71 - 디자인 패턴 1회차 중 기본 코드아래는 json을 불러와서 &amp;lt;table&amp;gt;요소에 표현하는 기본 코드다. 123">
+<meta name="keywords" content="코드 스피츠, OOP, 객체지향, ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="코드스피츠 수업 정리 - OOP(0.5..?)">
+<meta property="og:url" content="https://wonn223.github.io/2018/01/28/OOP/index.html">
+<meta property="og:site_name" content="seokwon">
+<meta property="og:description" content="6기 분들이 소개해 준 객체지향 책을 접하고 나서 객체지향과 관련된 강의를 찾아봤다. 아래 강의는 JSON파일을 화면에 표현하는 작업을 예시로 es6와 객체지향을 결합한 코딩을 보여준다. 강의를 들으면서 정리해봤다.  코드 스피츠71 - 디자인 패턴 1회차 중 기본 코드아래는 json을 불러와서 &amp;lt;table&amp;gt;요소에 표현하는 기본 코드다. 123">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://wonn223.github.io/2018/01/28/OOP/OOP/supplyer_render.png">
+<meta property="og:updated_time" content="2018-01-28T07:20:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="코드스피츠 수업 정리 - OOP(0.5..?)">
+<meta name="twitter:description" content="6기 분들이 소개해 준 객체지향 책을 접하고 나서 객체지향과 관련된 강의를 찾아봤다. 아래 강의는 JSON파일을 화면에 표현하는 작업을 예시로 es6와 객체지향을 결합한 코딩을 보여준다. 강의를 들으면서 정리해봤다.  코드 스피츠71 - 디자인 패턴 1회차 중 기본 코드아래는 json을 불러와서 &amp;lt;table&amp;gt;요소에 표현하는 기본 코드다. 123">
+<meta name="twitter:image" content="https://wonn223.github.io/2018/01/28/OOP/OOP/supplyer_render.png">
+    
+
+    
+        <link rel="alternate" href="/" title="seokwon" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Seokwon}.github.io</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-OOP" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        코드스피츠 수업 정리 - OOP(0.5..?)
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/01/28/OOP/" class="article-date">
+            <time datetime="2018-01-28T07:20:11.000Z" itemprop="datePublished">2018-01-28</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/코드-스피츠-OOP-객체지향-ES6/">코드 스피츠, OOP, 객체지향, ES6</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>6기 분들이 소개해 준 객체지향 책을 접하고 나서 객체지향과 관련된 강의를 찾아봤다. 아래 강의는 JSON파일을 화면에 표현하는 작업을 예시로 es6와 객체지향을 결합한 코딩을 보여준다. 강의를 들으면서 정리해봤다.</p>
+</blockquote>
+<p><a href="https:youtu.be/ymG40FJe2cM" target="_blank" rel="noopener">코드 스피츠71 - 디자인 패턴 1회차 중</a></p>
+<h3 id="기본-코드"><a href="#기본-코드" class="headerlink" title="기본 코드"></a>기본 코드</h3><p>아래는 json을 불러와서 <code>&lt;table&gt;</code>요소에 표현하는 기본 코드다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const Table =(_=&gt;&#123;</span><br><span class="line">    const Private = Symbol();</span><br><span class="line">    return class&#123;</span><br><span class="line">        constructor(parent)&#123;&#125;</span><br><span class="line">        async load(url)&#123;&#125;</span><br><span class="line">        _render()&#123;&#125;&#125;;</span><br><span class="line">    &#125;)();</span><br><span class="line"></span><br><span class="line">const table = new Table(&quot;#data&quot;);</span><br><span class="line">table.load(&quot;71_1.json&quot;);</span><br></pre></td></tr></table></figure>
+<p>즉시실행함수를 구현한 이유는 파서가 코드를 읽을 때 const 변수에 값이 할당시키려는 데 있다. const는 초기화 과정에 값이 반드시 있어야 하기 때문에 클래스를 리턴하는 함수를 만들었다. 즉시실행함수를 쓰게 되면 클래스 인스턴스끼리 공유하는 private/static한 변수를 자바스크립트 스타일로 구현할 수 있다.</p>
+<h3 id="자바스크립트에서-private-변수-구현하기"><a href="#자바스크립트에서-private-변수-구현하기" class="headerlink" title="자바스크립트에서 private 변수 구현하기"></a>자바스크립트에서 private 변수 구현하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">인자 자리에 언더스코어(_) 식별자가 들어갔다.</span><br><span class="line">const Table = (_=&gt; &#123;</span><br><span class="line"></span><br><span class="line">     &lt;!-- 자유 변수 공간  --&gt;</span><br><span class="line"></span><br><span class="line">    const render = Symbol(&apos;render&apos;);</span><br><span class="line">    const Private = Symbol(&apos;Private&apos;);</span><br><span class="line"></span><br><span class="line">     &lt;!-- private, static공간 --&gt;</span><br><span class="line"></span><br><span class="line">    return class &#123;</span><br><span class="line">        constructor(parent)&#123;</span><br><span class="line">            if(typeof parent != &apos;string&apos; || !parent ) throw &apos;invalid param&apos;;</span><br><span class="line">             &lt;!-- 심볼은 반드시 대괄호. 심볼은 키를 대신 할 수 있다. --&gt;</span><br><span class="line">            this[Private] = &#123; parent &#125;</span><br><span class="line">            console.log(this[Private]);</span><br><span class="line">        &#125;</span><br><span class="line">        (이하 생략...)</span><br></pre></td></tr></table></figure>
+<p>우선 함수의 리턴값을 함수로 만들어서 그 사이에 자유 변수 공간을 만들었다. 변수 <code>const render</code>와 <code>const Private</code>가 선언된 공간이 자유 변수 공간인데, 이 공간의 변수는 아래 클래스 내부에서만 참조할 수 있다. 물론 외부에서 프로퍼티 키를 읽는 메소드를 쓰면, 이 공간의 변수를 조회할 수 있다. 하지만 변수를 직접 참조하긴 어렵다.</p>
+<p>자유변수의 변수에 프리머티브한 값인 심볼을 할당해서 보다 더 private한 성격을 가지게 했다. 각각의 심볼은 전체 어플리케이션에서 유일하기 때문에 중복으로 인한 부작용을 막을 수 있다.</p>
+<p>validation 습관을 들이자. 컨스트럭터 내부를 보면 validation 코드가 있다. 여기서 검증을 하는 이유는 런타임 동안 인자로 들어오는 객체에 오류가 없는지 확인하는 데 있다. 런타임엔 스택에 코드가 연쇄적으로 쌓이는데, 이렇게 되면 오류가 났을 때 문제가 처음 어디서 발생했는지 찾기 어렵다. 그래서 <code>throw</code>에러를 쓰면 에러 발생의 첫 지점을 분명하게 보여줄 수 있다.</p>
+<h3 id="프로미즈를-활용한-load"><a href="#프로미즈를-활용한-load" class="headerlink" title="프로미즈를 활용한 load"></a>프로미즈를 활용한 load</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- url로 데이터 가져오기 --&gt;</span><br><span class="line">load(url) &#123;</span><br><span class="line">     fetch(url).then(res =&gt; &#123;</span><br><span class="line">     return res.json()</span><br><span class="line">     &#125;).then(json =&gt; &#123;</span><br><span class="line">         &lt;!-- 둘 중 하나 --&gt;</span><br><span class="line">        this._render() || this[render]();</span><br><span class="line">     &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">[render]()&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p><code>fetch</code>는 브라우저 내장API로 AJAX(XHR객체)를 대체할 수 있다. 프로미즈를 반환값으로 줘서 프로미즈 메소드<code>then</code>을 사용할 수 있다. <code>this[render]</code>는 심볼을 가진 객체를 키로 접근하는 코드다. 심볼값이 있기 때문에 대괄호를 쓴다.</p>
+<ul>
+<li>arrow 함수의 this는 load 메소드를 감싸고 있는 바깥 영역의 스코프를 가진다. 그래서 this[render]에 접근 가능하다. function 키워드는 es6에서 사용하지 않는다. 클래스 메소드나 애로우 함수로 표현 가능하다. function을 쓰면 브라우저가 호환모드로 인식해서 속도가 늦어진다. es6를 목표로 한다면 es6 문법을 최대한 써보도록 노력해야한다.</li>
+</ul>
+<h3 id="async-await-활용하기"><a href="#async-await-활용하기" class="headerlink" title="async/await 활용하기"></a>async/await 활용하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">async [load](url) &#123;</span><br><span class="line">    const response = await window.fetch(url);</span><br><span class="line">        if(!response.ok) throw &quot;invalid response&quot;; </span><br><span class="line">    const json = await response.json();</span><br><span class="line">    const &#123; title, header, items &#125; = json;</span><br><span class="line">    if(!items.length) throw &quot;no items&quot;;</span><br><span class="line">    Object.assign(this[Private], &#123;title, header, items&#125;);</span><br><span class="line">    return this[render]();</span><br><span class="line">    &#125;      </span><br><span class="line">[render]()&#123;</span><br><span class="line">    const fields = this[Private], parent = document.querySelector(fields.parent);</span><br><span class="line"></span><br><span class="line">    &lt;!-- validation --&gt;</span><br><span class="line">    if(!parent) throw &quot;invalid parent&quot;;</span><br><span class="line">    if(!fields.items || !fields.items.length) &#123;</span><br><span class="line">        parent.innerHTML = &quot;no data&quot;</span><br><span class="line">        return;</span><br><span class="line">    &#125; else parent.innerHTML = &apos;&apos;;</span><br><span class="line"></span><br><span class="line">    &lt;!-- table 노드 생성 --&gt;</span><br><span class="line">    const table = document.createElement(&quot;table&quot;);</span><br><span class="line"></span><br><span class="line">    &lt;!-- caption 노드 - table 노드 뒤 선언해야한다. --&gt;</span><br><span class="line">    const caption = document.createElement(&quot;caption&quot;);</span><br><span class="line">    caption.innerHTML = fields.title;</span><br><span class="line">    table.appendChild(caption);</span><br><span class="line">    table.appendChild(</span><br><span class="line">        fields.header.reduce((thead, data) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">                &lt;!-- th 노드 생성 --&gt;</span><br><span class="line">            const th = document.createElement(&quot;th&quot;);</span><br><span class="line"></span><br><span class="line">                     &lt;!-- data할당 --&gt;</span><br><span class="line">                    th.innerHTML = data;</span><br><span class="line">                    thead.appendChild(th);</span><br><span class="line">                    return thead;</span><br><span class="line">                &#125;, document.createElement(&quot;thead&quot;))</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">             &lt;!-- tr요소 생성 후 thead 안으로 추가하기 --&gt;</span><br><span class="line">            parent.appendChild(</span><br><span class="line">                fields.items.reduce((table, row) =&gt; &#123;</span><br><span class="line">                    table.appendChild(</span><br><span class="line">                        row.reduce((tr, data) =&gt; &#123;</span><br><span class="line">                            const td = document.createElement(&quot;td&quot;);</span><br><span class="line">                            td.innerHTML = data;</span><br><span class="line">                            tr.appendChild(td);</span><br><span class="line">                            return tr;</span><br><span class="line">                        &#125;, document.createElement(&quot;tr&quot;))</span><br><span class="line">                    );</span><br><span class="line">                    return table; </span><br><span class="line">                &#125;, table)</span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h3 id="promise보다-async-await가-나은-점-배열-reduce-메소드"><a href="#promise보다-async-await가-나은-점-배열-reduce-메소드" class="headerlink" title="promise보다 async/await가 나은 점, 배열 reduce 메소드"></a>promise보다 async/await가 나은 점, 배열 reduce 메소드</h3><p>비동기를 동기식으로 표현이 간결해졌고, 상태 검증 후 에러 처리가 보다 용이하다. 프로미즈를 썼다면 정확한 오류지점을 파악하려고 .then마다 일일이 <code>.catch</code>를 달아야 한다. async를 쓰면 조건문을 활용한 validation으로 에러를 확인할 수 있다.</p>
+<p><code>Array.prototype.reduce()</code>의 장점은 쉽게 하나의 값을 만들 수 있닫는 것이다. reduce를 쓰면 배열의 여러 요소를 하나의 ‘값’으로 만들 수 있다. 두 번째 인자는 초기값을 미리 입력할 수 있는 자리다. 인자에 있는 객체가 여기 있는 초기값을 활용한다. </p>
+<ul>
+<li>테이블 태그 관련) thead 요소는 열의 제목으로 구성된 행의 집합으로 caption 다음에 위치해야한다. <code>caption</code>태그도 <code>thead</code>태그 뒤에 위치해야한다.</li>
+</ul>
+<h3 id="객체지향에서-바라본-지금까지의-코드-문제점"><a href="#객체지향에서-바라본-지금까지의-코드-문제점" class="headerlink" title="객체지향에서 바라본 지금까지의 코드 문제점"></a>객체지향에서 바라본 지금까지의 코드 문제점</h3><p> 문제점 1<br> <code>load(url){}</code>에서 url을 사용한다는 것 자체가 객체지향이 아니다. 객체지향은 객체 간 협력 시 객체를 주고 받아야 하는데, url(즉, json) 값 객체를 주고 받고 있다. 값을 인자로 받고 절차를 구현한다는 건 객체지향에 어긋난다.</p>
+<p>문제점 2<br>Table 객체 안에 독립적인 역할과 책임을 가지는 <code>load()</code>, <code>render()</code>가 있다. 분리시킬 필요가 있다.</p>
+<h3 id="수정해보기-우선-협력관계를-정한다"><a href="#수정해보기-우선-협력관계를-정한다" class="headerlink" title="수정해보기 - 우선, 협력관계를 정한다."></a>수정해보기 - 우선, 협력관계를 정한다.</h3><p>객체지향에서 코드를 구현할 때 객체 간의 협력 관계를 잘 정해야 한다. 많은 사람들이 실수하는 것이 데이터 로더와 렌더러가 협력해야한다고 생각하는 것이다. 하지만 정확한 협력 관계는 데이터를 공급하는 데이터 공급자와 렌더러가 협력하는 것이다.</p>
+<p><img src="./OOP/supplyer_render.png" alt="잘못된 관계"></p>
+<h3 id="데이터-공급자-객체를-만든다"><a href="#데이터-공급자-객체를-만든다" class="headerlink" title="데이터 공급자 객체를 만든다"></a>데이터 공급자 객체를 만든다</h3><p>여러 데이터 중 json 데이터를 가지는 JSONData객체를 만든다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const data = new JSONData(&apos;77_1.json&apos;);</span><br><span class="line"></span><br><span class="line">const renderer = new Renderer();</span><br><span class="line">renderer.render(data);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>표시할 데이터를 가진 JSONData 클래스를 렌더러 메소드의 인자로 넣었다. 이렇게 밀접한 협력이 일어나는 모델을 트랜잭션 모델이라고 한다.</li>
+</ul>
+<p>단, Renderer는 동기 함수인데 변수 <code>data</code>는 url로 데이터를 받아오는 과정이 있어 비동기적 처리가 일어난다. 둘의 제어 흐름을 맞추려면, data를 thenable로 만들 수 있는 <code>async/await</code>를 써야한다. 즉, 값이 준비되었을 때 다음 처리가 되게하는 것이다.</p>
+ <!-- 인터페이스 - 어떤 종률의 데이터 객체든 getData를 활용할 수 있게 하려고 -->
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 보다 다양한 데이터를 getData()할 수 있게 인터페이스 선언 --&gt;</span><br><span class="line">const Data = class &#123;</span><br><span class="line">    async getData() &#123; throw &quot;must be overrided&quot;&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">&lt;!-- 아래 데이터들이 Data를 상속 --&gt;</span><br><span class="line">const JSONData = class extends Data &#123;</span><br><span class="line">    constructor(data) &#123;</span><br><span class="line">        super();</span><br><span class="line">        &lt;!-- es6에서부턴 this를 사용하려면 super키워드를 사용해야한다. --&gt;</span><br><span class="line">        this._data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     &lt;!-- 오버라이딩 --&gt;</span><br><span class="line">    async getData()&#123;</span><br><span class="line">         &lt;!-- validation --&gt;</span><br><span class="line">        if(typeof this._data == &apos;String&apos;) &#123;</span><br><span class="line">            const response = await fetch(this._data);</span><br><span class="line">            return await response.json();</span><br><span class="line">        &#125; else return this._data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"> &lt;!-- 역할 - 리턴받은 data를 뷰에 보여준다. --&gt;</span><br><span class="line">const Renderer = class &#123;</span><br><span class="line">    constructor()&#123;&#125;</span><br><span class="line">    async render(data)&#123;</span><br><span class="line"></span><br><span class="line">         &lt;!-- validation --&gt;</span><br><span class="line">        if(!(data instanceOf Data )) throw &apos;sth is missed&apos;;</span><br><span class="line"></span><br><span class="line">         &lt;!-- 통과하면 데이터 받아오기 --&gt;</span><br><span class="line">        const json = await data.getData();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>getData()</code>의 리턴값이 thenable이다. async를 쓰는 순간 프로미즈 then처럼 반환값을 프로미즈로 만들어 준다. 이 반환값을 <code>Renderer의 render</code>가 받는다.</p>
+<p><code>render(data)</code>에서 <code>instanceOf</code>를 사용하는데 이는 객체지향 관점에서 적절한 validation이다. 객체 협력 모델에서는 값을 판정하지 않고 형(type)을 판정하기 때문이다. json이건 아니건 중요한 건 Data type을 가지고 있는지 여부다.</p>
+<h3 id="객체지향-관점에서-바라본-렌더러-코드의-문제점"><a href="#객체지향-관점에서-바라본-렌더러-코드의-문제점" class="headerlink" title="객체지향 관점에서 바라본 렌더러 코드의 문제점"></a>객체지향 관점에서 바라본 렌더러 코드의 문제점</h3><p> 아직 data가 값이다. 객체 협력에서 data가 객체로 넘어가야하는데 값을 주고받고 간단한 형 체크만 하는 형태. 객체지향에서 값의 컨텍스트가 나타나선 안 된다. 처음 브라우저에서 성공적으로 데이터가 나왔지만, 사실 지금 제공한 json데이터는 아래 형 체크에서 오류를 일으킨다. data를 Info객체로 만들어야 함.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">const Info = class &#123;</span><br><span class="line"> constructor(json)&#123;</span><br><span class="line"></span><br><span class="line">      &lt;!-- json을 받은 후에 디스트럭쳐링해서 오류 여부 체크해보기 --&gt;</span><br><span class="line">     const &#123; title, header, items &#125; = json;</span><br><span class="line"></span><br><span class="line">     &lt;!-- validation --&gt;</span><br><span class="line">     &lt;!-- title이 스트링이 아니고 값이 없다면 throw 에러 --&gt;</span><br><span class="line"></span><br><span class="line">    if(title != string || !string) throw &apos;스트링 타입이 유효하지 않거나 값이 없습니다&apos;;</span><br><span class="line"></span><br><span class="line">     &lt;!-- 헤더의 형이 배열인가? --&gt;</span><br><span class="line">    if(Array.isArray(header) || !header.length ) &apos;헤더 타입이 유효하지 않거나 값이 없습니다&apos;</span><br><span class="line"></span><br><span class="line">     &lt;!-- 아이템의 형이 배열인가? --&gt;</span><br><span class="line">    if(Array.isArray(items) || !items.length ) &apos;아이템 타입이 유효하지 않거나 값이 없습니다&apos;</span><br><span class="line"></span><br><span class="line">    items.forEach( (item, idx) =&gt; &#123;</span><br><span class="line">        if(Array.isArray(v) || v.length != header.length) &#123;</span><br><span class="line">            throw `invalid idx : $&#123;v&#125;`</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">     &lt;!-- 위 검증을 다 마치면 변수에 할당 --&gt;</span><br><span class="line">    this._private = &#123; title, header, items&#125;;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> get title() &#123; this.title = this._private.title &#125;;</span><br><span class="line"> get header() &#123; return this._private.header &#125;;</span><br><span class="line"> get items() &#123; return this._private.title &#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이제 Info객체를 활용하면 어떤 종류의 데이터도 안전한 객체로 받아 쓸 수 있다. 안전성도 있다. get이 외부에 노출되는 인터페이스지만, 게터 없이 클래스 내부 변수로 직접 접근 못 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">async getData()&#123;</span><br><span class="line">     validation</span><br><span class="line">    if(typeof this._data == &apos;String&apos;) &#123;</span><br><span class="line">        const response = await fetch(this._data);</span><br><span class="line">        json = await response.json();</span><br><span class="line">         리턴값이 thenable이다. async를 쓰는 순간 프로미즈 then처럼 반환값을 정해준다.</span><br><span class="line">    &#125; else json = this._data;</span><br><span class="line">    return new Info(json);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://wonn223.github.io/2018/01/28/OOP/" data-id="cjcyggxwk0007rqp16swdr8ak" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/wonn223/" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/01/25/weakmap/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">WeakMap</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/01/28/OOP/" class="thumbnail">
+    
+    
+        <span style="background-image:url(./OOP/supplyer_render.png)" alt="코드스피츠 수업 정리 - OOP(0.5..?)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/28/OOP/" class="title">코드스피츠 수업 정리 - OOP(0.5..?)</a></p>
+                            <p class="item-date"><time datetime="2018-01-28T07:20:11.000Z" itemprop="datePublished">2018-01-28</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/01/25/weakmap/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://www.mindbodysouldeveloper.com/wp-content/uploads/2016/02/JavaScript.png)" alt="WeakMap" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/25/weakmap/" class="title">WeakMap</a></p>
+                            <p class="item-date"><time datetime="2018-01-25T12:36:37.000Z" itemprop="datePublished">2018-01-25</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/01/24/pattern/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/24/pattern/" class="title">자바스크립트 - ES6프록시, proxy pattern</a></p>
+                            <p class="item-date"><time datetime="2018-01-24T08:49:09.000Z" itemprop="datePublished">2018-01-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/01/23/immutable/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://www.mindbodysouldeveloper.com/wp-content/uploads/2016/02/JavaScript.png)" alt="immutable한 객체 만들기 - Immutable.js의 Map" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/23/immutable/" class="title">immutable한 객체 만들기 - Immutable.js의 Map</a></p>
+                            <p class="item-date"><time datetime="2018-01-23T10:48:25.000Z" itemprop="datePublished">2018-01-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/01/22/enumerable/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://www.mindbodysouldeveloper.com/wp-content/uploads/2016/02/JavaScript.png)" alt="자바스크립트 이해하기 - 프로퍼티와 Enumerable" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/01/22/enumerable/" class="title">자바스크립트 이해하기 - 프로퍼티와 Enumerable</a></p>
+                            <p class="item-date"><time datetime="2018-01-22T09:33:55.000Z" itemprop="datePublished">2018-01-22</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Weakmap-Symbol-es6-javascript/">Weakmap, Symbol, es6, javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/change-detection-앵귤러2-변화-감지-ngzone/">change detection, 앵귤러2, 변화 감지, ngzone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5-enumerable-자바스크립트-프로퍼티/">es5, enumerable, 자바스크립트, 프로퍼티</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutable-immutable-js-Object-freeze/">immutable, immutable.js, Object.freeze</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index-css-쌓임맥락-stacking-context-position/">z-index, css, 쌓임맥락, stacking context, position</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/깊은-복사-얇은-복사-deep-copy-참조-참조-복사/">깊은 복사, 얇은 복사, deep copy, 참조, 참조 복사</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/비동기-웹-워커-AJAX-IndexedDB-스레드-HTML5/">비동기, 웹 워커, AJAX, IndexedDB, 스레드, HTML5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/앵귤러2-change-detection/">앵귤러2+, change detection</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/코드-스피츠-OOP-객체지향-ES6/">코드 스피츠, OOP, 객체지향, ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/프록시-패턴-es6-프록시-proxy/">프록시 패턴, es6, 프록시, proxy</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Weakmap-Symbol-es6-javascript/" style="font-size: 10px;">Weakmap, Symbol, es6, javascript</a> <a href="/tags/change-detection-앵귤러2-변화-감지-ngzone/" style="font-size: 10px;">change detection, 앵귤러2, 변화 감지, ngzone</a> <a href="/tags/es5-enumerable-자바스크립트-프로퍼티/" style="font-size: 10px;">es5, enumerable, 자바스크립트, 프로퍼티</a> <a href="/tags/immutable-immutable-js-Object-freeze/" style="font-size: 10px;">immutable, immutable.js, Object.freeze</a> <a href="/tags/z-index-css-쌓임맥락-stacking-context-position/" style="font-size: 10px;">z-index, css, 쌓임맥락, stacking context, position</a> <a href="/tags/깊은-복사-얇은-복사-deep-copy-참조-참조-복사/" style="font-size: 10px;">깊은 복사, 얇은 복사, deep copy, 참조, 참조 복사</a> <a href="/tags/비동기-웹-워커-AJAX-IndexedDB-스레드-HTML5/" style="font-size: 10px;">비동기, 웹 워커, AJAX, IndexedDB, 스레드, HTML5</a> <a href="/tags/앵귤러2-change-detection/" style="font-size: 10px;">앵귤러2+, change detection</a> <a href="/tags/코드-스피츠-OOP-객체지향-ES6/" style="font-size: 10px;">코드 스피츠, OOP, 객체지향, ES6</a> <a href="/tags/프록시-패턴-es6-프록시-proxy/" style="font-size: 10px;">프록시 패턴, es6, 프록시, proxy</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 seokwon</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://wonn223.github.io/2018/01/28/OOP/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
