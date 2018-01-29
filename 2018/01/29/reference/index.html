@@ -3,24 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>자바스크립트 - ES6프록시, proxy pattern | seokwon</title>
+    <title>자바스크립트 - 참조와 값, 다형성 | seokwon</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="프록시 패턴, es6, 프록시, proxy" />
+        <meta name="keywords" content="참조, 레퍼런스, 값" />
     
-    <meta name="description" content="es6에서 proxy라는 새로운 객체를 내놨는데, ECMAScript에서 프록시 패턴을 내장해준 것이라고 한다. 프록시 패턴이 무엇인지, 그리고 es6에서 프록시를 어떻게 사용하는지 찾아보고 정리해봤다.  프록시 패턴언제 쓰는지?   외부에서 객체 접근을 통제하고 싶을 때(특정 객체의 일을 대신 해준다.) 사이즈가 큰 객체를 레이지 로딩하고 싶을 때  일">
-<meta name="keywords" content="프록시 패턴, es6, 프록시, proxy">
+    <meta name="description" content="코드스피츠 디자인패턴 강의 중(23분까지) 참조/값 개념과 이 개념이 클래스에 어떻게 적용되는지 알려줘서 한번 정리해봤다.  참조와 값참조는 특정한 경계를 넘지 못한다. 특정한 경계란 브라우저와 서버, 웹 워커와 메인 스레드 등 두 영역 사이에 생기는 지점을 말한다. 이 외에도 로컬스토리지, 쿠키에도 객체가 들어가지 못하는데, 이런 제약을 피하려면 참조를">
+<meta name="keywords" content="참조, 레퍼런스, 값">
 <meta property="og:type" content="article">
-<meta property="og:title" content="자바스크립트 - ES6프록시, proxy pattern">
-<meta property="og:url" content="https://wonn223.github.io/2018/01/24/pattern/index.html">
+<meta property="og:title" content="자바스크립트 - 참조와 값, 다형성">
+<meta property="og:url" content="https://wonn223.github.io/2018/01/29/reference/index.html">
 <meta property="og:site_name" content="seokwon">
-<meta property="og:description" content="es6에서 proxy라는 새로운 객체를 내놨는데, ECMAScript에서 프록시 패턴을 내장해준 것이라고 한다. 프록시 패턴이 무엇인지, 그리고 es6에서 프록시를 어떻게 사용하는지 찾아보고 정리해봤다.  프록시 패턴언제 쓰는지?   외부에서 객체 접근을 통제하고 싶을 때(특정 객체의 일을 대신 해준다.) 사이즈가 큰 객체를 레이지 로딩하고 싶을 때  일">
+<meta property="og:description" content="코드스피츠 디자인패턴 강의 중(23분까지) 참조/값 개념과 이 개념이 클래스에 어떻게 적용되는지 알려줘서 한번 정리해봤다.  참조와 값참조는 특정한 경계를 넘지 못한다. 특정한 경계란 브라우저와 서버, 웹 워커와 메인 스레드 등 두 영역 사이에 생기는 지점을 말한다. 이 외에도 로컬스토리지, 쿠키에도 객체가 들어가지 못하는데, 이런 제약을 피하려면 참조를">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-24T08:49:09.000Z">
+<meta property="og:updated_time" content="2018-01-29T10:51:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="자바스크립트 - ES6프록시, proxy pattern">
-<meta name="twitter:description" content="es6에서 proxy라는 새로운 객체를 내놨는데, ECMAScript에서 프록시 패턴을 내장해준 것이라고 한다. 프록시 패턴이 무엇인지, 그리고 es6에서 프록시를 어떻게 사용하는지 찾아보고 정리해봤다.  프록시 패턴언제 쓰는지?   외부에서 객체 접근을 통제하고 싶을 때(특정 객체의 일을 대신 해준다.) 사이즈가 큰 객체를 레이지 로딩하고 싶을 때  일">
+<meta name="twitter:title" content="자바스크립트 - 참조와 값, 다형성">
+<meta name="twitter:description" content="코드스피츠 디자인패턴 강의 중(23분까지) 참조/값 개념과 이 개념이 클래스에 어떻게 적용되는지 알려줘서 한번 정리해봤다.  참조와 값참조는 특정한 경계를 넘지 못한다. 특정한 경계란 브라우저와 서버, 웹 워커와 메인 스레드 등 두 영역 사이에 생기는 지점을 말한다. 이 외에도 로컬스토리지, 쿠키에도 객체가 들어가지 못하는데, 이런 제약을 피하려면 참조를">
     
 
     
@@ -137,14 +137,14 @@
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-pattern" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-reference" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        자바스크립트 - ES6프록시, proxy pattern
+        자바스크립트 - 참조와 값, 다형성
         </h1>
     
 
@@ -154,15 +154,15 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2018/01/24/pattern/" class="article-date">
-            <time datetime="2018-01-24T08:49:09.000Z" itemprop="datePublished">2018-01-24</time>
+        <a href="/2018/01/29/reference/" class="article-date">
+            <time datetime="2018-01-29T10:51:32.000Z" itemprop="datePublished">2018-01-29</time>
         </a>
     </div>
 
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/프록시-패턴-es6-프록시-proxy/">프록시 패턴, es6, 프록시, proxy</a>
+        <a class="tag-link" href="/tags/참조-레퍼런스-값/">참조, 레퍼런스, 값</a>
     </div>
 
             </div>
@@ -170,47 +170,31 @@
         
         <div class="article-entry" itemprop="articleBody">
             <blockquote>
-<p>es6에서 proxy라는 새로운 객체를 내놨는데, ECMAScript에서 프록시 패턴을 내장해준 것이라고 한다. 프록시 패턴이 무엇인지, 그리고 es6에서 프록시를 어떻게 사용하는지 찾아보고 정리해봤다.</p>
+<p><a href="https://www.youtube.com/watch?v=xfNwyB3KLX0" target="_blank" rel="noopener">코드스피츠 디자인패턴 강의 중(23분까지)</a><br> 참조/값 개념과 이 개념이 클래스에 어떻게 적용되는지 알려줘서 한번 정리해봤다.</p>
 </blockquote>
-<h3 id="프록시-패턴"><a href="#프록시-패턴" class="headerlink" title="프록시 패턴"></a>프록시 패턴</h3><p>언제 쓰는지? </p>
-<ul>
-<li>외부에서 객체 접근을 통제하고 싶을 때(특정 객체의 일을 대신 해준다.)</li>
-<li>사이즈가 큰 객체를 레이지 로딩하고 싶을 때</li>
-</ul>
-<p>일단 차 목록이 담긴 객체와 프로토타입을 만들어봤다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">const CarList = function() &#123;</span><br><span class="line">    this._carList = &#123;</span><br><span class="line">        1 : &apos;Acar&apos;, </span><br><span class="line">        2 : &apos;Bcar&apos;, </span><br><span class="line">        3 : &apos;Ccar&apos;, </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">CarList.prototype = &#123;</span><br><span class="line">    getCar: function (number) &#123;</span><br><span class="line">        console.log(this); // &#123; _carList : &#123; ... &#125;&#125;를 가리키고 있다.</span><br><span class="line">        return console.log(&apos;조회 결과&apos;, this._carList[number]);</span><br><span class="line">    &#125;,</span><br><span class="line">    search(number) &#123;</span><br><span class="line">        if(this._carList[number]) &#123;</span><br><span class="line">            return console.log(&apos;검색 결과&apos;, true);    </span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return console.log(&apos;검색결과&apos;, false);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    // 세터 함수</span><br><span class="line">    set addCar(newCar) &#123;</span><br><span class="line">        // 복사본 할당</span><br><span class="line">         const carList = Object.assign(this._carList, newCar);</span><br><span class="line">         console.log(carList);</span><br><span class="line">         return this.carList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 코드 확인</span><br><span class="line">let Owner1 = new CarList();</span><br><span class="line">let Owner2 = new CarList();</span><br><span class="line"></span><br><span class="line">console.log(Owner1.__proto__ === CarList.prototype); // true</span><br><span class="line"></span><br><span class="line">Owner1.getCar(3); //  Ccar</span><br><span class="line">Owner1.search(3); //  true</span><br><span class="line">Owner1.addCar = &#123; 4: &apos;Dcar&apos;&#125; ; // &#123; &apos;4&apos;: &apos;Dcar&apos; &#125; 추가</span><br><span class="line"></span><br><span class="line">console.log(Owner1);  // &#123; _carList: &#123; &apos;1&apos;: &apos;Acar&apos;, &apos;2&apos;: &apos;Bcar&apos;, &apos;3&apos;: &apos;Ccar&apos;, &apos;4&apos;: &apos;Dcar&apos; &#125; &#125;</span><br><span class="line"></span><br><span class="line">console.log(Owner2); // &#123; _carList: &#123; &apos;1&apos;: &apos;Acar&apos;, &apos;2&apos;: &apos;Bcar&apos;, &apos;3&apos;: &apos;Ccar&apos; &#125; &#125;</span><br><span class="line"></span><br><span class="line">console.log(new CarList()) // &#123; _carList: &#123; &apos;1&apos;: &apos;Acar&apos;, &apos;2&apos;: &apos;Bcar&apos;, &apos;3&apos;: &apos;Ccar&apos; &#125; &#125;, 원본 확인</span><br><span class="line">//</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">setter와 Object.assign()을 활용해서 _carList 변수에 직접적인 접근을 제한하려 했다. 세터/게터로만 접근하는 방법의 단점을 찾아보다가, 클래스 컨스트럭터 내부에서 프로퍼티를 선언하고 게터/세터로 그 프로퍼티에 접근하는 방식도 찾을 수 있었다. 하지만 두 방식 모두 게터/세터를 특정 변수마다 하나씩 선언해야 하는 단점이 있다. 이를 고쳐준 게 es6의 Proxy였다. (Proxy에 정해진 틀에 바꾸고 싶은 타겟 객체, 타겟 객체에 어떤 방식을 가미할 지등을 넣어주면 된다.)</span><br><span class="line"></span><br><span class="line">모든 프록시 프로토타입에 원본 객체의 메소드를 적용시켜놔서, 원본을 활용하지 않고 프록시 인스턴스 만으로 원하는 동작을 처리할 수 있었다. 예제를 따라 쳐보면서 프록시가 앵귤러 서비스와 비슷하단 느낌이 들었다.</span><br></pre></td></tr></table></figure>
-<p>const CarListProxy = function() {<br>    this.carList = new CarList();<br>};</p>
-<p>CarListProxy.prototype = {<br>        getCar(number) {<br>            return this.carList.getCar(number);<br>        },</p>
-<pre><code>search(number){
-    return  this.carList.search(number);
-},
-
-addCar(newCar){
-    return this.carList.addcar = newCar;
-}
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 프록시를 이용한 레이지로딩</span><br><span class="line">만약 carList나 prototype이 가진 사이즈가 크다면, 실행에 부담이 갈 수 있다. 그래서 프록시를 활용하면 특정 기능이 실행됐을 떄(트리거), carList를 초기화할 수 있다고 한다.</span><br></pre></td></tr></table></figure></p>
-<p>// 초기화 늦추기(레이지 로딩)<br>const CarList = function() {<br>    this._carList = {<br>        1 : ‘Acar’,<br>        2 : ‘Bcar’,<br>        3 : ‘Ccar’,<br>    }<br>};</p>
-<p>CarList.prototype = {<br>    getCar: function (number) {<br>        return console.log(‘조회 결과’, this._carList[number]);<br>    },<br>    search(number) {<br>        if(this._carList[number]) {<br>            return console.log(‘검색 결과’, true);<br>        } else {<br>            return console.log(‘검색결과’, false);<br>        }<br>    },<br>    set addCar(newCar) {<br>         const carList = Object.assign(this._carList, newCar);<br>         return this.carList;<br>    }<br>}</p>
-<p>const CarListProxy = function() {<br>    this.carList = null; // 일단 CarList 생서자를 실행시키지 않는다.<br>};</p>
-<p>CarListProxy.prototype = {<br>        init() {<br>            this.carList = new CarList();<br>        },</p>
-<pre><code>// 아래 메소드가 작동할 때 init이 호출되고, 차 목록 초기화가 일어난다.
-getCar(number) {
-    this.init();
-    return this.carList.getCar(number);
-},
-
-search(number){
-    this.init();
-    return  this.carList.search(number);
-},
-
-addCar(newCar){
-    this.init();
-    return this.carList.addcar = newCar;
-}
-</code></pre><p>}</p>
-<p>let instance_proxy = new CarListProxy();</p>
-<p>console.log(instance_proxy.carList); // null<br>console.log(instance_proxy.getCar(3)); // 조회 결과 Ccar<br>console.log(instance_proxy.carList); // { _carList: { ‘1’: ‘Acar’, ‘2’: ‘Bcar’, ‘3’: ‘Ccar’ } }<br>```</p>
+<h3 id="참조와-값"><a href="#참조와-값" class="headerlink" title="참조와 값"></a>참조와 값</h3><p>참조는 특정한 경계를 넘지 못한다. 특정한 경계란 브라우저와 서버, 웹 워커와 메인 스레드 등 두 영역 사이에 생기는 지점을 말한다. 이 외에도 로컬스토리지, 쿠키에도 객체가 들어가지 못하는데, 이런 제약을 피하려면 참조를 값으로 바꿨다가 다시 참조로 바꾸는 작업이 필요하다.</p>
+<p>값으로 환원될 때 문제가 되는 객체는?</p>
+<p>1.값이 클 때<br>배열이 내부 속성을 엄청나게 많이 가지거나, 큰 수를 지닌 객체를 원시값으로 바꿀 때.</p>
+<p>2.네이티브 객체<br>화면의 div를 로컬스토리지에 넣읇 방법이 없다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let a = &#123;</span><br><span class="line">    v : 3</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let b = a;</span><br><span class="line"></span><br><span class="line">a = &#123;</span><br><span class="line">    v : 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b.v </span><br><span class="line">// &#123; v : 5 &#125;로 예측할 수 있으나 실제 결과는 3</span><br></pre></td></tr></table></figure>
+<p><code>코드 let b = a;</code>의 의도는 변수 b로 a를 참조해서 a의 변화를 계속해서 따르는 것이다. 하지만 a가 새로운 참조를 할당받았을 때 b는 이 사실을 알지 못한다. 만약 a를 참조하는 변수가 여러 개고, b가 참조하는 a의 상태가 프로그램에 중요한 부분이면 프로그램의 실행에 큰 문제가 났을 것이다.</p>
+<p>이런 결과가 나타나는 원인은 자바스크립트에 연결된 포인터란 개념이 없다는 데 있다. </p>
+<p>위와 같은 일을 예방하려면, a가 기존의 참조를 가진 채로 자기 상태를 바꾸는 법을 찾아야 한다. 그 방법이 ‘참조의 참조’다. 값을 바꾸고 싶다면 객체 안의 프로퍼티 객체에서 변화를 주는 것.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let a = &#123;</span><br><span class="line">    v : &#123; v : 3 &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let b = a;</span><br><span class="line"></span><br><span class="line">a.v = &#123; v : 5 &#125;</span><br><span class="line">// or a.v.v = 5;</span><br><span class="line"> </span><br><span class="line">console.log(b.v.v) // 5</span><br></pre></td></tr></table></figure>
+<p>a는 v 객체 안 v에서 값을 바꿨기 때문에 a.v의 위치는 그대로 유지된다. b도 a의 변화를 확인했다.</p>
+<p>참조의 참조 방식은 데이터 구조인 링크드 리스트에서도 쓰고, 객체지향에서 볼 수 있는 인터페이스와 구상체(부모와 자식)에서도 쓴다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 상속 클래스 --&gt;</span><br><span class="line"></span><br><span class="line">//추상층(부모)</span><br><span class="line">const Parent = class &#123;</span><br><span class="line">    method() &#123;</span><br><span class="line">        console.log(&apos;Parent&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//구상층(자식)</span><br><span class="line">const Child = class extends Parent &#123;</span><br><span class="line">    method()&#123;</span><br><span class="line">        console.log(&apos;Child&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//인자없는 클래스는 괄호 생략해서 만들 수 있다.</span><br><span class="line">console.log((new Parent).method()) // Parent</span><br><span class="line">console.log((new Child).method()) // Child</span><br></pre></td></tr></table></figure>
+<p><code>(new Parent)</code>는 부모 클래스 <code>Parent</code>를 참조한다. 그리고 참조한 클래스에 있는 메소드 식별자(<code>method</code>)에 접근하면, 식별자가 가리키는 위치의 함수를 실행시킨다. 여기서는 Parent의 method가 된다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const Parent = class &#123;</span><br><span class="line">    method() &#123;</span><br><span class="line">        this._method();</span><br><span class="line">    &#125;</span><br><span class="line">    _method() &#123;</span><br><span class="line">        console.log(&apos;Parent&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const Child = class extends Parent &#123;</span><br><span class="line">    _method()&#123;</span><br><span class="line">        console.log(&apos;Child&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log((new Parent).method()) // Parent</span><br><span class="line">console.log((new Child).method()) // Child</span><br></pre></td></tr></table></figure>
+<p>Child는 자신한테 없는 <code>method</code> 식별자(포인터)를 상속 관계를 맺은 부모 클래스에게서 찾는다. 이렇게 상속관계에 있는 부모와 자식 클래스끼리 식별자를 공유하기 때문에, 객체지향의 대체가능성이라는 개념이 성립할 수 있다.</p>
+<p>자식 인스턴스가 부모 클래스의 method 식별자를 찾아서 method를 호출했지만, 어떻게 다시 자기 클래스 내부에 있는 식별자<code>_method</code>로 내려가 실행했을까? 식별자에 접근하려는 주체가 <code>new Child()</code>였고 이 정체성을 계속 유지하기 때문이다. 여러 행동을 하면서 자신의 정체성을 지키고 있는 것을 <a href="http://www.bsidesoft.com/?p=5199" target="_blank" rel="noopener">내적동질성</a>이라고 한다.</p>
+<p>객체지향을 지원하는 언어들은 다형성을 지원할 때 대체가능성과 내적동질성을 지원해준다. 두 개념 아래 객체지향 패턴이 존재한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 대체 가능성 확인 --&gt;</span><br><span class="line">new Child instanceof Parent; // true</span><br><span class="line"></span><br><span class="line">new Child는 자식이면서 부모다.</span><br><span class="line"></span><br><span class="line">&lt;!-- 내적동질성 확인은 method 예시 참고 --&gt;</span><br></pre></td></tr></table></figure>
+<p>출처)</p>
+<p>ES6에서 클래스를 쓰는 이유를 알려준다.</p>
+<p><a href="http://www.bsidesoft.com/?p=2339" target="_blank" rel="noopener">http://www.bsidesoft.com/?p=2339</a></p>
+<p>다형성(내적동질성과 대체가능성) 개념을 설명해준다.</p>
+<p><a href="http://www.bsidesoft.com/?p=5199" target="_blank" rel="noopener">http://www.bsidesoft.com/?p=5199</a></p>
 
         </div>
         <footer class="article-footer">
@@ -218,7 +202,7 @@ addCar(newCar){
 
 
 
-    <a data-url="https://wonn223.github.io/2018/01/24/pattern/" data-id="cjd03hfdr000mb1p169abwou2" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://wonn223.github.io/2018/01/29/reference/" data-id="cjd03hfdu000sb1p11p61hl6o" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -323,20 +307,10 @@ addCar(newCar){
         
 <nav id="article-nav">
     
-        <a href="/2018/01/25/weakmap/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            WeakMap
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2018/01/23/immutable/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/01/28/OOP/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">immutable한 객체 만들기 - Immutable.js의 Map</p>
+        <p class="article-nav-title">코드스피츠 수업 정리 - OOP(0.5..?)</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -532,7 +506,7 @@ addCar(newCar){
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://wonn223.github.io/2018/01/24/pattern/';
+    var disqus_url = 'https://wonn223.github.io/2018/01/29/reference/';
     
     (function() {
     var dsq = document.createElement('script');
