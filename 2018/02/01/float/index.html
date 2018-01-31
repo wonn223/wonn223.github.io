@@ -9,19 +9,19 @@
     
         <meta name="keywords" content="float, css, normal flow," />
     
-    <meta name="description" content="노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘노멀 플로우는 CSS의 핵심 알고리즘으로 HTML문서를 화면에 그릴 때 사용된다.  CSS2.1 문서에서 비쥬얼 포맷팅 모델이라는 모듈을 찾아보면 이 개념이 나온다. (CSS2  이후로 추가된 많은 기능들이 모듈 형태로 되어있다고 한다.) 노멀 플로우는 BFC, IFC, RP이란 그래픽 렌더링 원리로 나뉘고,">
+    <meta name="description" content="코드 스피츠 강의를 들으면서 정리한 노트다.  노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘노멀 플로우는 CSS의 핵심 알고리즘으로 HTML문서를 화면에 그릴 때 사용된다.  CSS2.1 문서에서 비쥬얼 포맷팅 모델이라는 모듈을 찾아보면 이 개념이 나온다. (CSS2  이후로 추가된 많은 기능들이 모듈 형태로 되어있다고 한다.) 노멀 플로우는 BFC,">
 <meta name="keywords" content="float, css, normal flow,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="css 이해하기 - 노멀 플로우와 float">
 <meta property="og:url" content="https://wonn223.github.io/2018/02/01/float/index.html">
 <meta property="og:site_name" content="seokwon">
-<meta property="og:description" content="노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘노멀 플로우는 CSS의 핵심 알고리즘으로 HTML문서를 화면에 그릴 때 사용된다.  CSS2.1 문서에서 비쥬얼 포맷팅 모델이라는 모듈을 찾아보면 이 개념이 나온다. (CSS2  이후로 추가된 많은 기능들이 모듈 형태로 되어있다고 한다.) 노멀 플로우는 BFC, IFC, RP이란 그래픽 렌더링 원리로 나뉘고,">
+<meta property="og:description" content="코드 스피츠 강의를 들으면서 정리한 노트다.  노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘노멀 플로우는 CSS의 핵심 알고리즘으로 HTML문서를 화면에 그릴 때 사용된다.  CSS2.1 문서에서 비쥬얼 포맷팅 모델이라는 모듈을 찾아보면 이 개념이 나온다. (CSS2  이후로 추가된 많은 기능들이 모듈 형태로 되어있다고 한다.) 노멀 플로우는 BFC,">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://wonn223.github.io/2018/02/01/float/helloworld_html.png">
-<meta property="og:updated_time" content="2018-01-31T15:16:36.000Z">
+<meta property="og:updated_time" content="2018-01-31T15:18:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="css 이해하기 - 노멀 플로우와 float">
-<meta name="twitter:description" content="노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘노멀 플로우는 CSS의 핵심 알고리즘으로 HTML문서를 화면에 그릴 때 사용된다.  CSS2.1 문서에서 비쥬얼 포맷팅 모델이라는 모듈을 찾아보면 이 개념이 나온다. (CSS2  이후로 추가된 많은 기능들이 모듈 형태로 되어있다고 한다.) 노멀 플로우는 BFC, IFC, RP이란 그래픽 렌더링 원리로 나뉘고,">
+<meta name="twitter:description" content="코드 스피츠 강의를 들으면서 정리한 노트다.  노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘노멀 플로우는 CSS의 핵심 알고리즘으로 HTML문서를 화면에 그릴 때 사용된다.  CSS2.1 문서에서 비쥬얼 포맷팅 모델이라는 모듈을 찾아보면 이 개념이 나온다. (CSS2  이후로 추가된 많은 기능들이 모듈 형태로 되어있다고 한다.) 노멀 플로우는 BFC,">
 <meta name="twitter:image" content="https://wonn223.github.io/2018/02/01/float/helloworld_html.png">
     
 
@@ -171,7 +171,10 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h3 id="노멀-플로우-화면을-그리는-데-쓰이는-알고리즘"><a href="#노멀-플로우-화면을-그리는-데-쓰이는-알고리즘" class="headerlink" title="노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘"></a>노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘</h3><p>노멀 플로우는 CSS의 핵심 알고리즘으로 HTML문서를 화면에 그릴 때 사용된다.  <a href="https://www.w3.org/TR/CSS2/visuren.html" target="_blank" rel="noopener">CSS2.1 문서</a>에서 비쥬얼 포맷팅 모델이라는 모듈을 찾아보면 이 개념이 나온다. (CSS2  이후로 추가된 많은 기능들이 모듈 형태로 되어있다고 한다.) 노멀 플로우는 BFC, IFC, RP이란 그래픽 렌더링 원리로 나뉘고, 포지션이 static(기본값)이거나 relative인 요소에 적용된다.</p>
+            <blockquote>
+<p><a href="https://www.youtube.com/watch?v=6cQBsyMMzuQ" target="_blank" rel="noopener">코드 스피츠 강의</a>를 들으면서 정리한 노트다.</p>
+</blockquote>
+<h3 id="노멀-플로우-화면을-그리는-데-쓰이는-알고리즘"><a href="#노멀-플로우-화면을-그리는-데-쓰이는-알고리즘" class="headerlink" title="노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘"></a>노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘</h3><p>노멀 플로우는 CSS의 핵심 알고리즘으로 HTML문서를 화면에 그릴 때 사용된다.  <a href="https://www.w3.org/TR/CSS2/visuren.html" target="_blank" rel="noopener">CSS2.1 문서</a>에서 비쥬얼 포맷팅 모델이라는 모듈을 찾아보면 이 개념이 나온다. (CSS2  이후로 추가된 많은 기능들이 모듈 형태로 되어있다고 한다.) 노멀 플로우는 BFC, IFC, RP이란 그래픽 렌더링 원리로 나뉘고, 포지션이 static(기본값)이거나 relative인 요소에 적용된다.</p>
 <ul>
 <li><p>BFC : 블록 포맷팅 컨텍스트(Block Formatting Contexts). 블락 요소를 화면에 그리는 방법(원리).</p>
 </li>
