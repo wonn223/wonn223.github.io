@@ -18,7 +18,7 @@
 <meta property="og:description" content="코드 스피츠 강의를 들으면서 정리한 노트다.  노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘노멀 플로우는 CSS의 핵심 알고리즘으로 HTML문서를 화면에 그릴 때 사용된다.  CSS2.1 문서에서 비쥬얼 포맷팅 모델이라는 모듈을 찾아보면 이 개념이 나온다. (CSS2  이후로 추가된 많은 기능들이 모듈 형태로 되어있다고 한다.) 노멀 플로우는 BFC,">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/1631/posts/29070/preview_image/CSS3.jpg">
-<meta property="og:updated_time" content="2018-02-01T04:57:36.000Z">
+<meta property="og:updated_time" content="2018-02-01T05:02:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="css 이해하기 - 노멀 플로우와 float">
 <meta name="twitter:description" content="코드 스피츠 강의를 들으면서 정리한 노트다.  노멀 플로우 - 화면을 그리는 데 쓰이는 알고리즘노멀 플로우는 CSS의 핵심 알고리즘으로 HTML문서를 화면에 그릴 때 사용된다.  CSS2.1 문서에서 비쥬얼 포맷팅 모델이라는 모듈을 찾아보면 이 개념이 나온다. (CSS2  이후로 추가된 많은 기능들이 모듈 형태로 되어있다고 한다.) 노멀 플로우는 BFC,">
@@ -206,9 +206,9 @@
 <li>인라인이 내려가는 이유 2가지</li>
 </ul>
 <ol>
-<li><p>float 가드를 만나서<br>: 인라인 요소가 다음 줄로 넘어간 만큼 영역이 커진다.</p>
+<li><p>float 가드를 만나서<br>: 인라인 요소가 다음 줄로 넘어간 만큼 IFC의 영역이 커진다.</p>
 </li>
-<li><p>블록 영역의 끝을 만나서<br>: 이 경우엔 다음 줄에 인라인 요소가 들어와도 그 만큼 영역이 늘어나지 않는다. 즉 콘텐츠만 내려갈 뿐.</p>
+<li><p>블록 영역의 끝을 만나서<br>: 이 경우엔 다음 줄에 인라인 요소가 들어와도 그 만큼 IFC 영역이 늘지 않는다. 즉 콘텐츠만 내려갈 뿐.</p>
 </li>
 </ol>
 <h3 id="노멀-플로우에-영향을-주는-속성2-overflow"><a href="#노멀-플로우에-영향을-주는-속성2-overflow" class="headerlink" title="노멀 플로우에 영향을 주는 속성2 overflow"></a>노멀 플로우에 영향을 주는 속성2 overflow</h3><p><img src="overflow_hidden.png" alt="overflow_hidden"></p>
