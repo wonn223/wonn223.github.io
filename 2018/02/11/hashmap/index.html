@@ -3,20 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Tag: 코드 스피츠, OOP, 객체지향, ES6 | seokwon</title>
+    <title>해시맵(hashmap)과 V8엔진 | seokwon</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta name="description" content="seokwon&apos;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="seokwon">
-<meta property="og:url" content="https://wonn223.github.io/tags/코드-스피츠-OOP-객체지향-ES6/index.html">
+        <meta name="keywords" content="자바스크립트, 객체, 해시, 맵, V8" />
+    
+    <meta name="description" content="자바스크립트의 객체는 해시맵의 성격을 갖고 있다. 여기서 해시맵이란 해시란 함수와 맵이라는 데이터 구조를 합친 개념이다. ![해시 함수는 문자열을 고유한 숫자로 바꿔주는 역할을 한다. 맵은 키와 값이라는 틀로 객체의 상태를 관리해주는 데이터 구조를 말하며, 해시 함수가 처리한 값을 맵의 키로 활용한다. 그래서 배열처럼 원하는 값을 찾기 전까지 인덱스를 하나">
+<meta name="keywords" content="자바스크립트, 객체, 해시, 맵, V8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="해시맵(hashmap)과 V8엔진">
+<meta property="og:url" content="https://wonn223.github.io/2018/02/11/hashmap/index.html">
 <meta property="og:site_name" content="seokwon">
-<meta property="og:description" content="seokwon&apos;s blog">
+<meta property="og:description" content="자바스크립트의 객체는 해시맵의 성격을 갖고 있다. 여기서 해시맵이란 해시란 함수와 맵이라는 데이터 구조를 합친 개념이다. ![해시 함수는 문자열을 고유한 숫자로 바꿔주는 역할을 한다. 맵은 키와 값이라는 틀로 객체의 상태를 관리해주는 데이터 구조를 말하며, 해시 함수가 처리한 값을 맵의 키로 활용한다. 그래서 배열처럼 원하는 값을 찾기 전까지 인덱스를 하나">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-11T14:55:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="seokwon">
-<meta name="twitter:description" content="seokwon&apos;s blog">
+<meta name="twitter:title" content="해시맵(hashmap)과 V8엔진">
+<meta name="twitter:description" content="자바스크립트의 객체는 해시맵의 성격을 갖고 있다. 여기서 해시맵이란 해시란 함수와 맵이라는 데이터 구조를 합친 개념이다. ![해시 함수는 문자열을 고유한 숫자로 바꿔주는 역할을 한다. 맵은 키와 값이라는 틀로 객체의 상태를 관리해주는 데이터 구조를 말하며, 해시 함수가 처리한 값을 맵의 키로 활용한다. 그래서 배열처럼 원하는 값을 찾기 전까지 인덱스를 하나">
     
 
     
@@ -129,78 +133,136 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>Tag: <em>코드 스피츠, OOP, 객체지향, ES6</em>
+    uncategorized
     </h1>
 </div>
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-hashmap" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2018" class="archive-year"><i class="icon fa fa-calendar-o"></i>2018</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2018/01/28/OOP/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://www.mindbodysouldeveloper.com/wp-content/uploads/2016/02/JavaScript.png)" alt="코드스피츠 수업 정리 - OOP(0.5..?)" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="https://wonn223.github.io/2018/01/28/OOP/">0</span>
-    
-</span>
-
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            
-            </div>
-            <div class="date"><time datetime="2018-01-28T07:20:11.000Z" itemprop="datePublished">2018-01-28</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2018/01/28/OOP/">코드스피츠 수업 정리 - OOP(0.5..?)</a>
+        해시맵(hashmap)과 V8엔진
         </h1>
     
 
-        <p class="article-excerpt">
-            
-6기 분들이 소개해 준 객체지향 책을 접하고 나서 객체지향과 관련된 강의를 찾아봤다. 아래 강의는 JSON파일을 화면에 표현하는 작업을 예시로 es6와 객체지향을 결합한 코딩을 보여준다. 강의를 들으면서 정리해봤다.
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/02/11/hashmap/" class="article-date">
+            <time datetime="2018-02-11T14:55:41.000Z" itemprop="datePublished">2018-02-11</time>
+        </a>
+    </div>
 
-코드 스피츠71 - 디자인 패턴 1회차 중
-기본 코드아래는 json을 불러와서 &lt;table&gt;요소에 표현하는 기본 코드다.
-123
-        </p>
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/자바스크립트-객체-해시-맵-V8/">자바스크립트, 객체, 해시, 맵, V8</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>자바스크립트의 객체는 해시맵의 성격을 갖고 있다. 여기서 해시맵이란 해시란 함수와 맵이라는 데이터 구조를 합친 개념이다. ![해시 함수는 문자열을 고유한 숫자로 바꿔주는 역할을 한다. 맵은 키와 값이라는 틀로 객체의 상태를 관리해주는 데이터 구조를 말하며, 해시 함수가 처리한 값을 맵의 키로 활용한다. 그래서 배열처럼 원하는 값을 찾기 전까지 인덱스를 하나씩 훑을 필요 없이, 키에 대응하는 프로퍼티 값을 바로 얻을 수 있다. </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    <span class="string">"0"</span> : <span class="string">"val"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.<span class="built_in">log</span>(obj[<span class="string">'0'</span>]); <span class="comment">// val</span></span><br><span class="line">console.<span class="built_in">log</span>(obj[<span class="number">0</span>]); <span class="comment">// val</span></span><br></pre></td></tr></table></figure>
+<p>단, 해쉬맵도 <em>연관배열</em>의 형태를 띈다. 그래서 배열 프로퍼티 접근에 사용하는 대괄호를 똑같이 사용할 수 있다. </p>
+<p>히든 클래스와 인라인 캐싱을 이용한다.</p>
+<p>히든 클래스 메모리에 적재된 프로퍼티의 인덱스<br>역할을 해줌.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">Stack</span><span class="params">(db, server, forntend, runtime)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.db = db;</span><br><span class="line">    <span class="keyword">this</span>.server = server;</span><br><span class="line">    <span class="keyword">this</span>.forntend = frontend;</span><br><span class="line">    <span class="keyword">this</span>.runtime = runtime;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const sane = new Stack('SQL','Express','Angular','Node');</span><br></pre></td></tr></table></figure>
+<p>프로퍼티에 offset을 추가해서 contiguous buffer로 인식한다. 처음 생성자 함수가 호출되면 생성자가 만든 빈 객체(인스턴스)에 히든 클래스 0번을 부여한다. 그 뒤 생성자 내부에서 인스턴스에 프로퍼티를 추가할 때마다, 그 수만큼 히든 클래스가 나온다. 각각의 히든 클래스에는 자신이 탄생시킨 프로퍼티를 가진다. 거기엔 offset도 적혀있다. </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stack.prototpye.toString = () =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span>.db.charAt(<span class="number">0</span>) +</span><br><span class="line">            <span class="keyword">this</span>.server.charAt(<span class="number">0</span>) +</span><br><span class="line">            <span class="keyword">this</span>.frontend.charAt(<span class="number">0</span>) +</span><br><span class="line">            <span class="keyword">this</span>.runtime.charAt(<span class="number">0</span>).tosupperCase() +</span><br><span class="line">      ) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이렇게 히든 클래스를 만들어 놓으면, 생성자가 다른 위치에서 다른 인스턴스를 만들 떄 쓸 수 있다. 바로 참조값만 확인하면 괜찮기 떄문에 빠른 프로퍼티 접근이 가능하다.   </p>
+<p>생서자에 프로퍼티를 추가하면 좋은 이유? 생성자 함수 내부에 프로퍼티가 적힌 대로 히든 클래스가 설정되므로 인스턴스 객체에 보다 빨리 접근할 수 있다.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const getName = stack =&gt; &#123; return 'the' + stack.toString()&#125;;</span><br></pre></td></tr></table></figure>
+<p>참고</p>
+<p><a href="https://www.youtube.com/watch?v=z-RXUzkFOSI" target="_blank" rel="noopener">https://www.youtube.com/watch?v=z-RXUzkFOSI</a></p>
+<p><a href="https://codeburst.io/objects-and-hash-tables-in-javascript-a472ad1940d9" target="_blank" rel="noopener">https://codeburst.io/objects-and-hash-tables-in-javascript-a472ad1940d9</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://wonn223.github.io/2018/02/11/hashmap/" data-id="cjdiwwn0k000snnp1obdcqwse" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
 </article>
+
+    <section id="comments">
     
-        </div>
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
     
-
-
-    </div></section>
-
+    </section>
 
 
                         </div>
@@ -229,6 +291,19 @@
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/02/01/float/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">css 이해하기 - 노멀 플로우와 float</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -419,11 +494,13 @@
     var disqus_shortname = 'hexo-theme-hueman';
     
     
+    var disqus_url = 'https://wonn223.github.io/2018/02/11/hashmap/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
